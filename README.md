@@ -2,7 +2,7 @@
 [Link to Documentation](https://docs.google.com/document/d/1BP2CsbGHD83c0s7JLD4JdVjrfBDxQUFI13GMh-crQ54/edit?usp=sharing)
 ## Team Members:
 1. Anusha Beeraiah Mariswamy	        20028528@mydbs.ie
-2. Gopika Kurumkulathil Vijayakumar	    20017757@mydbs.ie
+2. Gopika Kurumkulathil Vijayakumar   kvgopika3@gmail.com, 20017757@mydbs.ie
 3. Himanshu Jasraj Anand	            hv7460@gmail.com, 20020118@mydbs.ie
 4. Rizwana Basheer Basha 	            20031946@mydbs.ie
 

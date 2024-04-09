@@ -4,7 +4,7 @@
 1. Anusha Beeraiah Mariswamy - 20028528 - anushagowda1598@gmail.com
 2. Gopika Kurumkulathil Vijayakumar - 20017757 - kvgopika3@gmail.com
 3. Himanshu Jasraj Anand - 20020118 - hv7460@gmail.com
-4. Rizwana Basheer Basha - 20031946 - rizwanabasheer067@gmail.com
+4. Rizwana Basheer Basha - 20031946 - 20031946@mydbs.ie
 
 [Flask Project Article](https://realpython.com/flask-project/)
 

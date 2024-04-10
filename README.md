@@ -4,7 +4,7 @@
 1. Anusha Beeraiah Mariswamy - 20028528 - anushagowda1598@gmail.com
 2. Gopika Kurumkulathil Vijayakumar - 20017757 - kvgopika3@gmail.com
 3. Himanshu Jasraj Anand - 20020118 - hv7460@gmail.com
-4. Rizwana Basheer Basha - 20031946 - 20031946@mydbs.ie
+4. Rizwana Basheer Basha - 20031946 - rizwanabasheer067@gmail.com
 
 [Flask Project Article](https://realpython.com/flask-project/)
 
@@ -19,3 +19,32 @@
 <!-- pip list -->
 <!-- pip freeze >> requirements.txt -->
 <!-- pip install -r requirements.txt -->
+
+
+Steps to Setup on Azure Cloud:
+1. git clone <repo-name>
+2. cd <repo-name>
+3. .env.db
+4. Create a virtual environment for the app:
+   1. py -m venv .venv
+   2. .venv\scripts\activate
+5. Install the dependencies:
+   1. pip install -r requirements.txt
+6. # Run database migration
+flask db upgrade
+# Run the app at http://127.0.0.1:5000
+flask run
+
+
+
+# Steps for DB:
+1. WEB APP: https://medium.com/@hangyulson1004/steps-to-integrate-mysql-with-flask-on-a-ubuntu-server-covers-subprocess-exited-with-error-a9a731f683b9
+2. https://docs.rackspace.com/docs/create-and-edit-users-in-mysql?source=post_page-----a9a731f683b9--------------------------------
+3. MYSQL create user and password: https://stackoverflow.com/questions/39281594/error-1698-28000-access-denied-for-user-rootlocalhost
+4. DEPLOY: https://www.reddit.com/r/flask/comments/fkccgy/i_have_created_a_flask_app_how_do_i_deploy_it/
+<!-- Installation -->
+sudo apt update
+sudo apt install mysql-server
+sudo systemctl start mysql.service
+<!-- Check if installed or not -->
+sudo mysql

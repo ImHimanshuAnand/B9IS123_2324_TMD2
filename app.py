@@ -25,11 +25,14 @@ app = Flask(__name__)
 # My SQL Instance configurations
 # Change the HOST IP and Password to match your instance configurations
 
-@app.route("/test", methods=['GET'])#URL leading to method
+@app.route("/login", methods=['GET'])#URL leading to method
 def test(): # Name of the method
    return render_template('login.html') #indent this line
 #    return("Hello World!<BR/>THIS IS YET ANOTHER TEST!") 
 
+@app.route("/signup", methods=['GET'])#URL leading to method
+def test(): # Name of the method
+   return render_template('signup.html')
 
 
 if __name__ == "__main__":

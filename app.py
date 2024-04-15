@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
-from flask_cors import CORS
+
 
 from logging.config import dictConfig
 
@@ -22,7 +22,6 @@ dictConfig({
 })
 
 app = Flask(__name__)
-CORS(app)
 # My SQL Instance configurations
 # Change the HOST IP and Password to match your instance configurations
 
@@ -34,4 +33,4 @@ def test(): # Name of the method
 
 
 if __name__ == "__main__":
-  app.run(host='0.0.0.0',port='8080',ssl_context=('cert.pem', 'privkey.pem'))
+  app.run(host='0.0.0.0',port='8080')

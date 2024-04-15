@@ -26,12 +26,12 @@ app = Flask(__name__)
 # Change the HOST IP and Password to match your instance configurations
 
 @app.route("/login", methods=['GET'])#URL leading to method
-def test(): # Name of the method
+def login(): # Name of the method
    return render_template('login.html') #indent this line
 #    return("Hello World!<BR/>THIS IS YET ANOTHER TEST!") 
 
 @app.route("/signup", methods=['GET'])#URL leading to method
-def test(): # Name of the method
+def signup(): # Name of the method
    return render_template('signup.html')
 
 

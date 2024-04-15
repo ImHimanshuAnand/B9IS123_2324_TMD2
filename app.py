@@ -26,8 +26,8 @@ app = Flask(__name__)
 
 @app.route("/test", methods=['GET'])#URL leading to method
 def test(): # Name of the method
-#  return render_template('login.html') #indent this line
-   return("Hello World!<BR/>THIS IS YET ANOTHER TEST!") 
+   return render_template('login.html') #indent this line
+#    return("Hello World!<BR/>THIS IS YET ANOTHER TEST!") 
 
 
 

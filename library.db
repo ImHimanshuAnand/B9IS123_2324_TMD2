@@ -1,0 +1,10 @@
+CREATE DATABASE library;
+
+USE library;
+
+CREATE TABLE login (userType VARCHAR(50),email)   aMMMMMMMariaDB [library]> CREATE TABLE login (userType VARCHAR(50),email VARCHAR(255), password VARCHAR(255), loginID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(loginID));
+
+INSERT INTO login(userType,email,password) values ("User", "fake@mydbs.ie" , "12345");
+
+SELECT * FROM login;				
+																																																																																	

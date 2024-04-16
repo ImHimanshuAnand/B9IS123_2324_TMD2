@@ -43,13 +43,15 @@ def signup():
        password = request.form['password']
 
        insert_query = ''' 
-             INSERT INTO User (userType, Email, Password)
+             INSERT INTO login (userType, email, password)
              VALUES (%s,%s,%s)
        '''
        cursor = mysql.cursor();
        cursor.execute(insert_query,(userType, email, password))
-       mysql.commit
-       flash()      
+       mysql.commit()
+       flash("Signup successfull! Please Login.", "success")
+       signup_alert = "Signup successfull! Please wait a moment."    
+       return render_template('signup.html', signup_alert=signup_alert)
     return render_template('signup.html')
 
 @app.route("/login")#URL leading to method

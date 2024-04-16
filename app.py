@@ -38,7 +38,6 @@ def test(): # Name of the method
 def login(): # Name of the method
  return render_template('login.html')
 
-
 @app.route("/add", methods=['GET', 'POST']) #Add Student
 def add():
   if request.method == 'POST':

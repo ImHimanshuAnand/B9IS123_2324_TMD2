@@ -47,7 +47,7 @@ def signup():
              VALUES (%s,%s,%s)
        '''
        cursor = mysql.cursor();
-       cursor.execute(insert query,(userType, email, password))
+       cursor.execute(insert_query,(userType, email, password))
        mysql.commit
        flash()      
  return render_template('signup.html')

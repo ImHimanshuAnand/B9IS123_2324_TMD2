@@ -64,7 +64,7 @@ def userreservation(): # Name of the method
 
 @app.route("/adminform")#URL leading to method
 def adminform(): # Name of the method
- return render_template('adminform.html')
+ return render_template('admin_form.html')
 
 
 

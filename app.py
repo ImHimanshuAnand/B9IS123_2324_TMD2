@@ -56,6 +56,12 @@ def signup():
 def login(): # Name of the method
  return render_template('login.html')
 
+@app.route("/userreservation")#URL leading to method
+def userreservation(): # Name of the method
+ return render_template('user_form.html')
+
+
+
 @app.route("/add", methods=['GET', 'POST']) #Add Student
 def add():
   if request.method == 'POST':

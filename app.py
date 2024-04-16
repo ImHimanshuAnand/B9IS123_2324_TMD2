@@ -50,7 +50,7 @@ def signup():
        cursor.execute(insert_query,(userType, email, password))
        mysql.commit
        flash()      
-return render_template('signup.html')
+    return render_template('signup.html')
 
 @app.route("/login")#URL leading to method
 def login(): # Name of the method

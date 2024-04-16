@@ -4,6 +4,8 @@ from flask import request
 import mysql.connector
 from flask_cors import CORS
 import json
+
+# MySQL Database Connection
 mysql = mysql.connector.connect(user='web', password='webPass',
   host='127.0.0.1',
   database='student')
@@ -25,14 +27,30 @@ dictConfig({
         'handlers': ['wsgi']
     }
 })
+
+
+# Flask app initialization 
 app = Flask(__name__)
 CORS(app)
 # My SQL Instance configurations
-# Change the HOST IP and Password to match your instance configurations
 
-@app.route("/test")#URL leading to method
-def test(): # Name of the method
- return("Hello World!<BR/>THIS IS ANOTHER TEST!") #indent this line
+
+@app.route("/signup", methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+       userType = request.form['userType']
+       email = request.form['email']
+       password = request.form['password']
+
+       insert_query = ''' 
+             INSERT INTO User (userType, Email, Password)
+             VALUES (%s,%s,%s)
+       '''
+       cursor = mysql.cursor();
+       cursor.execute(insert query,(userType, email, password))
+       mysql.commit
+       flash()      
+ return render_template('signup.html')
 
 @app.route("/login")#URL leading to method
 def login(): # Name of the method
@@ -53,6 +71,7 @@ def add():
     return render_template('add.html')
 
   return '{"Result":"Success"}'
+  
 @app.route("/") #Default - Show Data
 def hello(): # Name of the method
   cur = mysql.cursor() #create a connection to the SQL instance
@@ -72,5 +91,7 @@ def hello(): # Name of the method
     mimetype='application/json'
   )
   return ret #Return the data in a string format
+
+
 if __name__ == "__main__":
   app.run(host='0.0.0.0',port='8080', ssl_context=('cert.pem', 'privkey.pem')) #Run the flask app at port 8080

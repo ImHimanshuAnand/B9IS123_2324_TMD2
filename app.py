@@ -62,9 +62,9 @@ def login(): # Name of the method
 def userreservation(): # Name of the method
  return render_template('user_form.html')
 
-@app.route("/admin")#URL leading to method
-def admin(): # Name of the method
- return render_template('admin.html')
+@app.route("/adminform")#URL leading to method
+def adminform(): # Name of the method
+ return render_template('adminform.html')
 
 
 

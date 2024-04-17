@@ -17,7 +17,7 @@ USE library;
 
 CREATE TABLE user (userID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(UserID),name VARCHAR(80),phonenumber BIGINT,booktitle VARCHAR(255),issuedate TIMESTAMP,returndate TIMESTAMP);
 
-INSERT INTO user(name,phonenumber,booktitle,issuedate,returndate) values("Anusha", "4278202858" ,"Secret of Taj", "16-04-2024", "23-04-2024");
+INSERT INTO user(name,phonenumber,booktitle,issuedate,returndate) values("Anusha", "4278202858" ,"Secret of Taj", "2024-08-02", "2024-09-02");
 
 SELECT * FROM user;
 
@@ -28,8 +28,8 @@ CREATE DATABASE library;
 
 USE library;
 
-CREATE TABLE admin(title VARCHAR(255),author VARCHAR(255),genre VARCHAR(255),publisher VARCHAR(255),year TIMESTAMP,availability VARCHAR(80));
+CREATE TABLE admin(titleID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(titleID),title VARCHAR(255),author VARCHAR(255),genre VARCHAR(255),publisher VARCHAR(255),year TIMESTAMP,availability VARCHAR(80));
 
-INSERT INTO admin(title,author,genre,publisher,year,availability) values("Pride and Prejudice","Jane Austen","Fiction","Dover Pubications","20-04-2020","Available");
+INSERT INTO admin(title,author,genre,publisher,year,availability) values("Pride and Prejudice","Jane Austen","Fiction","Dover Pubications","2024-07-01","Available");
 
 SELECT * FROM admin;

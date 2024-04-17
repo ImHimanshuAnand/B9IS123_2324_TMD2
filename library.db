@@ -12,7 +12,7 @@ CREATE DATABASE library;
 
 USE library;
 
-CREATE TABLE user (userID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(UserID),name VARCHAR(80),phonenumber INT,booktitle VARCHAR(255),issuedate TIMESTAMP,returndate TIMESTAMP)
+CREATE TABLE user (userID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(UserID),name VARCHAR(80),phonenumber BIGINT,booktitle VARCHAR(255),issuedate TIMESTAMP,returndate TIMESTAMP);
 
 INSERT INTO user(name,phonenumber,booktitle,issuedate,returndate) values("Anusha", "4278202858" ,"Secret of Taj", "16-04-2024", "23-04-2024");
 

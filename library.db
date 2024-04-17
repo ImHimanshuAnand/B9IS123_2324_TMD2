@@ -28,7 +28,7 @@ CREATE DATABASE library;
 
 USE library;
 
-CREATE TABLE admin(title VARCHAR(255),author VARCHAR(255),genre VARCHAR(255),publisher VARCHAR(255),year TIMESTAMP,availability VARCHAR(80))
+CREATE TABLE admin(title VARCHAR(255),author VARCHAR(255),genre VARCHAR(255),publisher VARCHAR(255),year TIMESTAMP,availability VARCHAR(80));
 
 INSERT INTO admin(title,author,genre,publisher,year,availability) values("Pride and Prejudice","Jane Austen","Fiction","Dover Pubications","20-04-2020","Available");
 

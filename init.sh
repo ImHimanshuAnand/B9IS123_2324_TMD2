@@ -13,9 +13,13 @@ source venv/bin/activate
 pip3 install Flask
 
 # Install MariaDB
-sudo apt install mariadb-server
+sudo apt install mariadb-server --yes
 
-# Press Y
+# Press Y or use "yes" command
+# yes
+# Infinite yes, with plain "yes" cmd, refer man yes
+# Solved: append --varName1 --varName2 at end of command
+# LOST the terminal output in codespaces prior to that, till Lib18 maybe.
 
 # Start mysql service, otherwise won't be able to login
 sudo service mysql start
@@ -36,3 +40,4 @@ sudo service mysql start
 
 # # 
 echo "After exit"
+echo "Call another script here to setup DB"

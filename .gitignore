@@ -1,1 +1,5 @@
+# INCLUDE into git history
+# .vscode
+
+# EXCLUDE from git history
 /venv

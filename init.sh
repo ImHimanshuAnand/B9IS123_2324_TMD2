@@ -20,8 +20,14 @@ sudo apt install mariadb-server
 # Start mysql service, otherwise won't be able to login
 sudo service mysql start
 
-# Open mysql with sudo permission, not using username, password for now.
-sudo mysql
+# # Open mysql with sudo permission, not using username, password for now.
+# sudo mysql
+
+# MySQL connection details
+MYSQL_USER="root"
+MYSQL_PASSWORD="hv7460"
+MYSQL_HOST="localhost"
+MYSQL_DATABASE="Library"
 
 # # EXPORT DB
 # sudo mysqldump Library > data-dump.sql

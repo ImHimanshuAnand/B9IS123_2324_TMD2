@@ -41,3 +41,6 @@ sudo service mysql start
 # # 
 echo "After exit"
 echo "Call another script here to setup DB"
+
+bash ./initDB.sh
+echo "Finished Running initDB.sh................"

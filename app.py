@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import flash
 import mysql.connector
 from flask_cors import CORS
 import json
@@ -47,13 +48,12 @@ def signup():
        app.logger.info(insert_query)
        cursor.execute(insert_query)
        mysql.commit()
-       return render_template('login.html')
+       flash("Signup successfull! Please Login.", "success")
+       signup_alert = "Signup successfull! Please wait a moment."    
+       return render_template('signup.html', signup_alert=signup_alert)
     else:   
        return render_template('signup.html')
-    # flash("Signup successfull! Please Login.", "success")
-    # signup_alert = "Signup successfull! Please wait a moment."    
-    # return render_template('signup.html', signup_alert=signup_alert)
-    return '{"Result":"Success"}'
+  
 
 # @app.route("/login")#URL leading to method
 # def login(): # Name of the method

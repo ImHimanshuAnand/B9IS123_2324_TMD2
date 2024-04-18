@@ -47,6 +47,7 @@ def signup():
        app.logger.info(insert_query)
        cursor.execute(insert_query)
        mysql.commit()
+       return render_template('login.html')
     else:   
        return render_template('signup.html')
     # flash("Signup successfull! Please Login.", "success")

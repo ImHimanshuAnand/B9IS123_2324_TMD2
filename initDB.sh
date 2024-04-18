@@ -52,6 +52,8 @@ echo "USE $MYSQL_DATABASE; select * from Users" | sudo mysql | column -t
 
 # WRITE SQL QUERIES before EOF block
 sudo mysql << "EOF"
+USE Lib12;
 SELECT * FROM Users;
 EOF
 # ERROR 1046 (3D000) at line 1: No database selected
+# SOLVED: USE <dbName>;

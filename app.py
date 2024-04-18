@@ -56,20 +56,20 @@ def signup():
     # return render_template('signup.html', signup_alert=signup_alert)
     return '{"Result":"Success"}'
 
-@app.route("/login")#URL leading to method
-def login(): # Name of the method
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        cursor = mysql.cursor();
-        select_query = '''SELECT * FROM login WHERE email='{}' AND password='{}';'''
-        app.logger.info(select_query)
-        cursor.execute(select_query)
-        user = cursor.fetchone()
-        if user:
-          # User exists, redirect to login or some other page 
+# @app.route("/login")#URL leading to method
+# def login(): # Name of the method
+#     if request.method == 'POST':
+#         email = request.form['email']
+#         password = request.form['password']
+#         cursor = mysql.cursor();
+#         select_query = '''SELECT * FROM login WHERE email='{}' AND password='{}';'''
+#         app.logger.info(select_query)
+#         cursor.execute(select_query)
+#         user = cursor.fetchone()
+#         if user:
+#           # User exists, redirect to login or some other page 
 
-    # return render_template('login.html')
+#     # return render_template('login.html')
 
 @app.route("/userreservation")#URL leading to method
 def userreservation(): # Name of the method

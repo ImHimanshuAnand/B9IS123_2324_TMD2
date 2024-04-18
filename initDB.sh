@@ -2,7 +2,7 @@
 MYSQL_USER="root"
 MYSQL_PASSWORD="hv7460"
 MYSQL_HOST="localhost"
-MYSQL_DATABASE="Lib11"
+MYSQL_DATABASE="Lib12"
 
 # MySQL command to create database
 CREATE_DB_QUERY="CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"
@@ -49,3 +49,9 @@ sudo mysql -D$MYSQL_DATABASE -e "$INSERT_DATA_QUERY_USERS"
 # echo "select * from table" | mysql -uUSER -pPASS | column -t
 echo "USE $MYSQL_DATABASE; select * from Users" | sudo mysql | column -t
 # Successfully Prints Table data onto terminal output after 3-4 attempts
+
+# WRITE SQL QUERIES before EOF block
+sudo mysql << "EOF"
+SELECT * FROM Users;
+EOF
+# ERROR 1046 (3D000) at line 1: No database selected

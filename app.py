@@ -64,12 +64,23 @@ def login(): # Name of the method
         cursor = mysql.cursor();
         select_query = '''SELECT * FROM login WHERE email='{}' AND password='{}';'''
         app.logger.info(select_query)
-        
-    return render_template('login.html')
+        cursor.execute(select_query)
+        user = cursor.fetchone()
+        if user:
+          # User exists, redirect to login or some other page 
+
+ return render_template('login.html')
 
 @app.route("/userreservation")#URL leading to method
 def userreservation(): # Name of the method
- return render_template('user_form.html')
+    if request.method == 'POST':
+      room_type = request.form['room_type']
+      check_in_date = request.form['room_type']
+      check_out_date = request.form['check_out_date']
+
+ return render_template('reservation_confirmation.html',room_type=room_type)
+else:
+  return render_template('user.form.html') 
 
 @app.route("/adminform")#URL leading to method
 def adminform(): # Name of the method

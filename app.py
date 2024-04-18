@@ -82,19 +82,19 @@ def userreservation(): # Name of the method
 
 @app.route("/adminform")#URL leading to method
 def adminform(): # Name of the method
-      if request.method == 'POST':
-          titleID = request.form['titleID']
-          title = request.form['title']
-          author = request.form['author']
-          genre = request.form['genre']
-          pulisher = request.form['year']
-          year = request.form['availability']
-          cursor = mysql.cursor()
-          insert_query = '''INSERT INTO books (titleID, title, author, genre, pubisher, year, availability) VALUES (%s, %s, %s, %s, %s, %s, %s)'''
-          cursor.execute(insert_query, (titleID, title, author, genre, pubisher, year, availability))
-          mysql.commit()
-          cursor.close()
-      return render_template('admin_form.html')
+    if request.method == 'POST':
+       titleID = request.form['titleID']
+       title = request.form['title']
+       author = request.form['author']
+       genre = request.form['genre']
+       pulisher = request.form['year']
+       year = request.form['availability']
+       cursor = mysql.cursor()
+       insert_query = '''INSERT INTO books (titleID, title, author, genre, pubisher, year, availability) VALUES (%s, %s, %s, %s, %s, %s, %s)'''
+       cursor.execute(insert_query, (titleID, title, author, genre, pubisher, year, availability))
+       mysql.commit()
+       cursor.close()
+    return render_template('admin_form.html')
 
 
 

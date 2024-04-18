@@ -34,25 +34,27 @@ app = Flask(__name__)
 CORS(app)
 # My SQL Instance configurations
 
-
+#Route for user signup
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
        userType = request.form['userType']
        email = request.form['email']
        password = request.form['password']
-
-       insert_query = ''' 
-             INSERT INTO login (userType, email, password)
-             VALUES (%s,%s,%s)
-       '''
+       print(userType,email,password)
        cursor = mysql.cursor();
-       cursor.execute(insert_query,(userType, email, password))
+       insert_query= ''' 
+             INSERT INTO login (userType, email, password)
+             VALUES('{}','{}','{}');'''.format(userType,email,password)
+       app.logger.info(insert_query)
+       cursor.execute(insert_query)
        mysql.commit()
-       flash("Signup successfull! Please Login.", "success")
-       signup_alert = "Signup successfull! Please wait a moment."    
-       return render_template('signup.html', signup_alert=signup_alert)
-    return render_template('signup.html')
+    else:   
+       return render_template('signup.html')
+    flash("Signup successfull! Please Login.", "success")
+    signup_alert = "Signup successfull! Please wait a moment."    
+    return render_template('signup.html', signup_alert=signup_alert)
+  
 
 @app.route("/login")#URL leading to method
 def login(): # Name of the method

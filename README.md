@@ -96,3 +96,9 @@ sudo apt -y install mariadb-server mariadb-client libmariadbclient-dev
 pip3 install flask_cors mysql-connector-python
 
 
+<!-- Git Commands -->
+git log - To check commit history
+git pull - To pull changes into current branch
+git add - To add changes to staging
+git commit - To commit changes to local repo
+git push - To push changes to remote repo

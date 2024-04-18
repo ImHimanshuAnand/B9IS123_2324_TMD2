@@ -76,41 +76,41 @@ def adminform(): # Name of the method
 
 
 
-@app.route("/add", methods=['GET', 'POST']) #Add Student
-def add():
-  if request.method == 'POST':
-    name = request.form['name']
-    email = request.form['email']
-    print(name,email)
-    cur = mysql.cursor() #create a connection to the SQL instance
-    s='''INSERT INTO students(studentName, email) VALUES('{}','{}');'''.format(name,email)
-    app.logger.info(s)
-    cur.execute(s)
-    mysql.commit()
-  else:
-    return render_template('add.html')
+# @app.route("/add", methods=['GET', 'POST']) #Add Student
+# def add():
+#   if request.method == 'POST':
+#     name = request.form['name']
+#     email = request.form['email']
+#     print(name,email)
+#     cur = mysql.cursor() #create a connection to the SQL instance
+#     s='''INSERT INTO students(studentName, email) VALUES('{}','{}');'''.format(name,email)
+#     app.logger.info(s)
+#     cur.execute(s)
+#     mysql.commit()
+#   else:
+#     return render_template('add.html')
 
-  return '{"Result":"Success"}'
+#   return '{"Result":"Success"}'
   
-@app.route("/") #Default - Show Data
-def hello(): # Name of the method
-  cur = mysql.cursor() #create a connection to the SQL instance
-  cur.execute('''SELECT * FROM students''') # execute an SQL statment
-  rv = cur.fetchall() #Retreive all rows returend by the SQL statment
-  Results=[]
-  for row in rv: #Format the Output Results and add to return string
-    Result={}
-    Result['Name']=row[0].replace('\n',' ')
-    Result['Email']=row[1]
-    Result['ID']=row[2]
-    Results.append(Result)
-  response={'Results':Results, 'count':len(Results)}
-  ret=app.response_class(
-    response=json.dumps(response),
-    status=200,
-    mimetype='application/json'
-  )
-  return ret #Return the data in a string format
+# @app.route("/") #Default - Show Data
+# def hello(): # Name of the method
+#   cur = mysql.cursor() #create a connection to the SQL instance
+#   cur.execute('''SELECT * FROM students''') # execute an SQL statment
+#   rv = cur.fetchall() #Retreive all rows returend by the SQL statment
+#   Results=[]
+#   for row in rv: #Format the Output Results and add to return string
+#     Result={}
+#     Result['Name']=row[0].replace('\n',' ')
+#     Result['Email']=row[1]
+#     Result['ID']=row[2]
+#     Results.append(Result)
+#   response={'Results':Results, 'count':len(Results)}
+#   ret=app.response_class(
+#     response=json.dumps(response),
+#     status=200,
+#     mimetype='application/json'
+#   )
+#   return ret #Return the data in a string format
 
 
 if __name__ == "__main__":

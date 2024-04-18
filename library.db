@@ -2,6 +2,7 @@ CREATE DATABASE library;
 
 USE library;
 
+
 CREATE TABLE login (userType VARCHAR(50),email VARCHAR(255), password VARCHAR(255), loginID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(loginID));
 
 INSERT INTO login(userType,email,password) values ("User", "fake@mydbs.ie" , "12345");
@@ -9,24 +10,12 @@ INSERT INTO login(userType,email,password) values ("User", "fake@mydbs.ie" , "12
 SELECT * FROM login;	
 
 
-
-																																																																																	
-CREATE DATABASE library;
-
-USE library;
-
 CREATE TABLE user (userID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(UserID),name VARCHAR(80),phonenumber BIGINT,booktitle VARCHAR(255),issuedate TIMESTAMP,returndate TIMESTAMP);
 
 INSERT INTO user(name,phonenumber,booktitle,issuedate,returndate) values("Anusha", "4278202858" ,"Secret of Taj", "2024-08-02", "2024-09-02");
 
 SELECT * FROM user;
 
-
-
-
-CREATE DATABASE library;
-
-USE library;
 
 CREATE TABLE admin(titleID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(titleID),title VARCHAR(255),author VARCHAR(255),genre VARCHAR(255),publisher VARCHAR(255),year TIMESTAMP,availability VARCHAR(80));
 

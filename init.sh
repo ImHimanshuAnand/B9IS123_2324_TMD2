@@ -1,19 +1,26 @@
 #! /bin/sh
 
+# Update repo list
+sudo apt update
+
 # Install Virtual env
 python3 -m venv venv
+
 # Activate Virtual env
 source venv/bin/activate
+
 # Install Flask dependency
 pip3 install Flask
 
-# exit
-# python3 app.py
-
-sudo apt update
+# Install MariaDB
 sudo apt install mariadb-server
+
 # Press Y
+
+# Start mysql service, otherwise won't be able to login
 sudo service mysql start
+
+# Open mysql with sudo permission, not using username, password for now.
 sudo mysql
 
 # # EXPORT DB

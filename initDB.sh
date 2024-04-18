@@ -2,7 +2,10 @@
 MYSQL_USER="root"
 MYSQL_PASSWORD="hv7460"
 MYSQL_HOST="localhost"
-MYSQL_DATABASE="Lib12"
+MYSQL_DATABASE="Lib18"
+
+# INCREMENTING Database Count of MYSQL_DATABASE to avoid below error.
+# ERROR 1062 (23000) at line 2: Duplicate entry '1' for key 'PRIMARY'
 
 # MySQL command to create database
 CREATE_DB_QUERY="CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"
@@ -50,10 +53,49 @@ sudo mysql -D$MYSQL_DATABASE -e "$INSERT_DATA_QUERY_USERS"
 echo "USE $MYSQL_DATABASE; select * from Users" | sudo mysql | column -t
 # Successfully Prints Table data onto terminal output after 3-4 attempts
 
+USE_MYDB="USE Lib18;"
 # WRITE SQL QUERIES before EOF block
-sudo mysql << "EOF"
-USE Lib12;
+sudo mysql << EOF
+$USE_MYDB
 SELECT * FROM Users;
+CREATE TABLE IF NOT EXISTS $MYSQL_DATABASE.Books (
+    BookId INT PRIMARY KEY,
+    BookTitle VARCHAR(255),
+    BookAuthor VARCHAR(255),
+    BookGenre VARCHAR(50),
+    BookPublisher VARCHAR(255),
+    BookYear DATE,
+    BookStatus ENUM('Available', 'On Hold', 'Not Available')
+);
+
+CREATE TABLE IF NOT EXISTS BookReservations (
+    BookReservationId INT PRIMARY KEY,
+    UserName VARCHAR(50),
+    UserPhone BIGINT(10),
+    BookTitle VARCHAR(255),
+    IssueDate DATETIME,
+    ReturnDate DATETIME,
+    UserId INT,
+    BookId INT,
+    FOREIGN KEY (UserId) REFERENCES Users(UserId),
+    FOREIGN KEY (BookId) REFERENCES Books(BookId)
+);
+
+INSERT INTO Books (BookId, BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear, BookStatus)
+VALUES (1, 'The Great Gatsby', 'F. Scott Fitzgerald', 'Fiction', 'Scribner', '1925-04-10', 'Available'),
+       (2, 'To Kill a Mockingbird', 'Harper Lee', 'Fiction', 'J. B. Lippincott & Co.', '1960-07-11', 'Available'),
+       (3, '1984', 'George Orwell', 'Dystopian', 'Secker & Warburg', '1949-06-08', 'On Hold');
+
+INSERT INTO BookReservations (BookReservationId, UserName, UserPhone, BookTitle, IssueDate, ReturnDate, UserId, BookId)
+VALUES (1, 'John Doe', 1234567890, 'The Great Gatsby', '2024-04-18 10:00:00', '2024-04-25 10:00:00', 1, 1),
+       (2, 'Jane Smith', 9876543210, 'To Kill a Mockingbird', '2024-04-20 14:00:00', '2024-04-27 14:00:00', 2, 2);
+
 EOF
+
 # ERROR 1046 (3D000) at line 1: No database selected
-# SOLVED: USE <dbName>;
+# SOLVED: USE <dbName>; before queries
+
+# ERROR 1049 (42000) at line 3: Unknown database '$MYSQL_DATABASE'
+# ERROR 1049 (42000) at line 1: Unknown database '${MYSQL_DATABASE}'
+# ERROR 1064 (42000) at line 1: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '$USE_MYDB
+# SOLVED: replaced double quoted "EOF" to wihout quotes EOF

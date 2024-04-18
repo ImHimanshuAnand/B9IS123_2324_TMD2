@@ -87,7 +87,7 @@ INSERT INTO admin(title,author,genre,publisher,year,availability) values("Pride 
 SELECT * FROM admin;
 
 
-<!-- asdkagsdhsagdgasdgaj -->
+<!-- Code From Prof. Paul's Moodle Page, to setup mariaDB -->
 sudo apt update
 sudo  apt -y upgrade
 sudo apt -y install python3-pip

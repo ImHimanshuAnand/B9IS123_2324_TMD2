@@ -52,7 +52,7 @@ def signup():
     # flash("Signup successfull! Please Login.", "success")
     # signup_alert = "Signup successfull! Please wait a moment."    
     # return render_template('signup.html', signup_alert=signup_alert)
-  
+    return '{"Result":"Success"}'
 
 @app.route("/login")#URL leading to method
 def login(): # Name of the method

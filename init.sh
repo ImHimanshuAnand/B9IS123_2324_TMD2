@@ -1,5 +1,15 @@
 #! /bin/sh
 
+# Install Virtual env
+python3 -m venv venv
+# Activate Virtual env
+source venv/bin/activate
+# Install Flask dependency
+pip3 install Flask
+
+# exit
+# python3 app.py
+
 sudo apt update
 sudo apt install mariadb-server
 # Press Y

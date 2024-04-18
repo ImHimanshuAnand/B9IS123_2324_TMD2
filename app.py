@@ -56,6 +56,13 @@ def signup():
 
 @app.route("/login")#URL leading to method
 def login(): # Name of the method
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        cursor = mysql.cursor();
+        select_query = '''SELECT * FROM login WHERE email='{}' AND password='{}';'''
+        app.logger.info(select_query)
+        
  return render_template('login.html')
 
 @app.route("/userreservation")#URL leading to method

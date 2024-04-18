@@ -101,3 +101,9 @@ EOF
 # SOLVED: replaced double quoted "EOF" to wihout quotes EOF
 
 echo "Database setup completed successfully."
+
+# to run scripts
+# source command (which is an alias for .)
+# example: 
+# . test.sh
+# source test.sh

@@ -64,7 +64,7 @@ def login(): # Name of the method
         select_query = '''SELECT * FROM login WHERE email='{}' AND password='{}';'''
         app.logger.info(select_query)
         
- return render_template('login.html')
+    return render_template('login.html')
 
 @app.route("/userreservation")#URL leading to method
 def userreservation(): # Name of the method

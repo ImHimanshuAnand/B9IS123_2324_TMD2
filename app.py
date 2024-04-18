@@ -69,7 +69,7 @@ def login(): # Name of the method
         if user:
           # User exists, redirect to login or some other page 
 
- return render_template('login.html')
+    return render_template('login.html')
 
 @app.route("/userreservation")#URL leading to method
 def userreservation(): # Name of the method

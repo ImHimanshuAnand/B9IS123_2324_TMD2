@@ -38,16 +38,17 @@ CORS(app)
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
-       userType = request.form['userType']
-       email = request.form['email']
-       password = request.form['password']
-       print(userType,email,password)
-       cursor = mysql.cursor();
-       insert_query= ''' INSERT INTO login (userType, email, password) VALUES('{}','{}','{}');'''.format(userType,email,password)
-       app.logger.info(insert_query)
-       cursor.execute(insert_query)
-       mysql.commit()
-       return render_template('login.html')
+    #    userType = request.form['userType']
+    #    email = request.form['email']
+    #    password = request.form['password']
+    #    print(userType,email,password)
+    #    cursor = mysql.cursor();
+    #    insert_query= ''' INSERT INTO login (userType, email, password) VALUES('{}','{}','{}');'''.format(userType,email,password)
+    #    app.logger.info(insert_query)
+    #    cursor.execute(insert_query)
+    #    mysql.commit()
+      #  return render_template('login.html')
+      return "login.html"
     else:   
        return render_template('signup.html')
     # flash("Signup successfull! Please Login.", "success")

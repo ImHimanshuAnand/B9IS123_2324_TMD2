@@ -99,3 +99,5 @@ EOF
 # ERROR 1049 (42000) at line 1: Unknown database '${MYSQL_DATABASE}'
 # ERROR 1064 (42000) at line 1: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '$USE_MYDB
 # SOLVED: replaced double quoted "EOF" to wihout quotes EOF
+
+echo "Database setup completed successfully."

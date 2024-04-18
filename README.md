@@ -85,3 +85,14 @@ CREATE TABLE admin(titleID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(titleID),titl
 INSERT INTO admin(title,author,genre,publisher,year,availability) values("Pride and Prejudice","Jane Austen","Fiction","Dover Pubications","2024-07-01","Available");
 
 SELECT * FROM admin;
+
+
+<!-- asdkagsdhsagdgasdgaj -->
+sudo apt update
+sudo  apt -y upgrade
+sudo apt -y install python3-pip
+pip3 install Flask
+sudo apt -y install mariadb-server mariadb-client libmariadbclient-dev
+pip3 install flask_cors mysql-connector-python
+
+

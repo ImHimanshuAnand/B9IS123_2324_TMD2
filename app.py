@@ -77,7 +77,6 @@ def userreservation(): # Name of the method
       room_type = request.form['room_type']
       check_in_date = request.form['room_type']
       check_out_date = request.form['check_out_date']
-
  return render_template('reservation_confirmation.html',room_type=room_type)
 else:
   return render_template('user.form.html') 

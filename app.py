@@ -7,8 +7,8 @@ import json
 
 # MySQL Database Connection
 mysql = mysql.connector.connect(user='web', password='webPass',
-  host='127.0.0.1',
-  database='student')
+  host='40.67.241.3',
+  database='library')
 
 from logging.config import dictConfig
 
@@ -43,17 +43,15 @@ def signup():
        password = request.form['password']
        print(userType,email,password)
        cursor = mysql.cursor();
-       insert_query= ''' 
-             INSERT INTO login (userType, email, password)
-             VALUES('{}','{}','{}');'''.format(userType,email,password)
+       insert_query= ''' INSERT INTO login (userType, email, password) VALUES('{}','{}','{}');'''.format(userType,email,password)
        app.logger.info(insert_query)
        cursor.execute(insert_query)
        mysql.commit()
     else:   
        return render_template('signup.html')
-    flash("Signup successfull! Please Login.", "success")
-    signup_alert = "Signup successfull! Please wait a moment."    
-    return render_template('signup.html', signup_alert=signup_alert)
+    # flash("Signup successfull! Please Login.", "success")
+    # signup_alert = "Signup successfull! Please wait a moment."    
+    # return render_template('signup.html', signup_alert=signup_alert)
   
 
 @app.route("/login")#URL leading to method

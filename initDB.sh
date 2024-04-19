@@ -107,3 +107,16 @@ echo "Database setup completed successfully."
 # example: 
 # . test.sh
 # source test.sh
+
+
+
+# Dropping the unwanted Attributes
+USE_MYDB="USE Lib18;"
+# WRITE SQL QUERIES before EOF block
+sudo mysql << EOF
+$USE_MYDB
+Alter Table Users DROP Column StudentID;
+Alter Table Users DROP Column AdminID;
+
+EOF
+

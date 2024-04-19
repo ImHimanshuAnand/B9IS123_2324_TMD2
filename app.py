@@ -1,15 +1,12 @@
-from flask import Flask
-from flask import render_template
-from flask import request
-from flask import flash
+from flask import Flask, render_template, request, jsonify, flash
 import mysql.connector
 from flask_cors import CORS
 import json
 
 # MySQL Database Connection
-mysql = mysql.connector.connect(user='web', password='webPass',
-  host='127.0.0.1',
-  database='library')
+mysql = mysql.connector.connect(user='hv7460', password='hv7460',
+  host='localhost',
+  database='Lib18')
 
 from logging.config import dictConfig
 
@@ -34,6 +31,37 @@ dictConfig({
 app = Flask(__name__)
 CORS(app)
 # My SQL Instance configurations
+
+@app.route("/")
+def main():
+  return "Hello, The app is started!"
+
+@app.route("/add_book", methods=['POST'])
+def AddBook():
+  if request.method == 'POST':
+      BookId=request.form['BookId']
+      BookTitle=request.form['BookTitle']
+      BookAuthor=request.form['BookAuthor']
+      BookGenre=request.form['BookGenre']
+      BookPublisher=request.form['BookPublisher']
+      BookYear=request.form['BookYear']
+      BookStatus=request.form['BookStatus']
+      print(BookTitle)
+      cursor = mysql.cursor();
+      insert_query= ''' INSERT INTO Books (BookId,BookTitle,BookAuthor,BookGenre,BookPublisher,BookYear,BookStatus) VALUES('{}','{}','{}');'''.format(BookId,BookTitle,BookAuthor,BookGenre,BookPublisher,BookYear,BookStatus)
+      app.logger.info(insert_query)
+      cursor.execute(insert_query)
+      mysql.commit()
+      flash("Successfully Inserted A Book into DB", "success")
+      return jsonify(isError= False,
+                message= "Success",
+                statusCode= 200,
+                # data= data
+                ) 
+      200
+      #  return render_template('signup.html',"Success: Added a book!")
+  # else:   
+      #  return render_template('signup.html')
 
 #Route for user signup
 @app.route("/signup", methods=['GET', 'POST'])
@@ -135,5 +163,8 @@ def adminform(): # Name of the method
 #   return ret #Return the data in a string format
 
 
+#Run the flask app at port 8080
 if __name__ == "__main__":
-  app.run(host='0.0.0.0',port='8080', ssl_context=('cert.pem', 'privkey.pem')) #Run the flask app at port 8080
+  app.run(host='0.0.0.0',port='8080'
+  # ,ssl_context=('cert.pem', 'privkey.pem')
+  )

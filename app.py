@@ -67,12 +67,12 @@ def AddBook():
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
-       userType = request.form['userType']
-       email = request.form['email']
-       password = request.form['password']
-       print(userType,email,password)
+       UserType = request.form['UserType']
+       Email = request.form['Email']
+       Password = request.form['Password']
+       print(UserType,Email,Password)
        cursor = mysql.cursor();
-       insert_query= ''' INSERT INTO login (userType, email, password) VALUES('{}','{}','{}');'''.format(userType,email,password)
+       insert_query= ''' INSERT INTO Users (UserType, Email, Password) VALUES('{}','{}','{}');'''.format(UserType,Email,Password)
        app.logger.info(insert_query)
        cursor.execute(insert_query)
        mysql.commit()

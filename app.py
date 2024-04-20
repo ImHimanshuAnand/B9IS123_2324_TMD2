@@ -54,11 +54,11 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
 # User class for Flask-Login 
-Class User(UserMixin):
-   def __init__(self,UserID,UserType,Email):
-      self.id = UserID
-      self.UserType = UserType
-      self.Email =  Email
+Class Users(UserMixin):
+    def __init__(self,UserID,UserType,Email):
+        self.id = UserID
+        self.UserType = UserType
+        self.Email =  Email
 
 #Loader Function for Flask Login
 @login_manager.user_loader

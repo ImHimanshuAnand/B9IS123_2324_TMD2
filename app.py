@@ -248,8 +248,15 @@ def adminform():
        cursor = mysql.cursor()
        insert_query = '''INSERT INTO Admin (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear ) VALUES (%s, %s, %s, %s, %s)'''
        app.logger.info(insert_query)
-       cursor.execute(insert_query, (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear))
-       mysql.commit()
+
+       try:
+         cursor.execute(insert_query, (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear))
+         mysql.commit()
+         return render_template('admin_form.html')
+       except Exception as e:
+         app.logger.error("Error")
+         return "Error"
+    else:
        return render_template('admin_form.html')
 # --------------------------------------------------------
 # @app.route("/add", methods=['GET', 'POST']) #Add Student

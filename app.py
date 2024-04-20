@@ -228,8 +228,8 @@ def BookReservations():
        cursor.execute(insert_query)
        mysql.commit()
        return render_template('user_form.html')
-    else:
-       return render_template('login.html') 
+    #else:
+       #return render_template('login.html') 
 
 @app.route("/adminform")
 def adminform(): 

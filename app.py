@@ -213,7 +213,7 @@ def main():
       #  return render_template('signup.html')
 
 
-@app.route("/BookReservations",methods=['Get','POST']) 
+@app.route("/BookReservations", methods=['Get','POST']) 
 def BookReservations(): 
     if request.method == 'POST':
        UserName = request.form['UserName']
@@ -222,14 +222,14 @@ def BookReservations():
        IssueDate = request.form['IssueDate']
        ReturnDate = request.form['ReturnDate']
 
-       cursor = mysql.cursor();
+       cursor = mysql.cursor()
        insert_query='''INSERT INTO BookReservations (UserName, UserPhone, BookTitle, IssueDate, ReturnDate) VALUES('{}','{}','{}','{}','{}');'''.format (UserName, UserPhone, BookTitle, IssueDate, ReturnDate)
        app.logger.info(insert_query)
        cursor.execute(insert_query)
        mysql.commit()
        return render_template('user_form.html')
-    #else:
-       #return render_template('login.html') 
+    else:
+       return render_template('login.html') 
 
 @app.route("/adminform")
 def adminform(): 

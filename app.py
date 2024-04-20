@@ -143,104 +143,104 @@ def login():
 def main():
   return "Hello, The app is started!"
 
-@app.route('/book',methods=["GET","POST","PUT","DELETE"])
-def book():
-  if request.method == 'POST':
-    # data = request.json
-    # title = data['title']
-    # print(title,author)
-    # BookId=request.form['BookId']
-    BookTitle=request.form['BookTitle']
-    BookAuthor=request.form['BookAuthor']
-    BookGenre=request.form['BookGenre']
-    BookPublisher=request.form['BookPublisher']
-    BookYear=request.form['BookYear']
-    BookStatus=request.form['BookStatus']    
-    # print(BookId)
+# @app.route('/book',methods=["GET","POST","PUT","DELETE"])
+# def book():
+#   if request.method == 'POST':
+#     # data = request.json
+#     # title = data['title']
+#     # print(title,author)
+#     # BookId=request.form['BookId']
+#     BookTitle=request.form['BookTitle']
+#     BookAuthor=request.form['BookAuthor']
+#     BookGenre=request.form['BookGenre']
+#     BookPublisher=request.form['BookPublisher']
+#     BookYear=request.form['BookYear']
+#     BookStatus=request.form['BookStatus']    
+#     # print(BookId)
     
-    db = get_db()
-    cursor = db.cursor()
-    query= '''INSERT INTO Books (BookId,BookTitle,BookAuthor,BookGenre,BookPublisher,BookYear,BookStatus) VALUES('{}','{}','{}','{}','{}','{}','{}');'''.format(100,BookTitle,BookAuthor,BookGenre,BookPublisher,BookYear,BookStatus)
-    cursor.execute(query)
-    db.commit()
-    db.close()
-    return jsonify({'message': 'Book created successfully'})
-  elif request.method == "PUT":
-    books.append(request.get_json())
-  elif request.method == "DELETE":
-    print(request.view_args('book_id'))
-    book_id=request.args.get('book_id')
-    # book_id=request.args.get('book_id')
-    db = get_db()
-    cursor = db.cursor()
-    books = cursor.execute("DELETE FROM Books WHERE id = %s", (100))
-    db.commit()
-    db.close()
-    return jsonify({'message': 'Book deleted successfully'})
-  elif request.method == "GET":
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute("SELECT * FROM Books")
-    books = cursor.fetchall()
-    db.commit()
-    db.close()
-    return jsonify(books)
-  else:
-    return "UNKNOWN HTTP METHOD"
+#     db = get_db()
+#     cursor = db.cursor()
+#     query= '''INSERT INTO Books (BookId,BookTitle,BookAuthor,BookGenre,BookPublisher,BookYear,BookStatus) VALUES('{}','{}','{}','{}','{}','{}','{}');'''.format(100,BookTitle,BookAuthor,BookGenre,BookPublisher,BookYear,BookStatus)
+#     cursor.execute(query)
+#     db.commit()
+#     db.close()
+#     return jsonify({'message': 'Book created successfully'})
+#   elif request.method == "PUT":
+#     books.append(request.get_json())
+#   elif request.method == "DELETE":
+#     print(request.view_args('book_id'))
+#     book_id=request.args.get('book_id')
+#     # book_id=request.args.get('book_id')
+#     db = get_db()
+#     cursor = db.cursor()
+#     books = cursor.execute("DELETE FROM Books WHERE id = %s", (100))
+#     db.commit()
+#     db.close()
+#     return jsonify({'message': 'Book deleted successfully'})
+#   elif request.method == "GET":
+#     db = get_db()
+#     cursor = db.cursor()
+#     cursor.execute("SELECT * FROM Books")
+#     books = cursor.fetchall()
+#     db.commit()
+#     db.close()
+#     return jsonify(books)
+#   else:
+#     return "UNKNOWN HTTP METHOD"
 
-@app.route("/add_book", methods=['POST'])
-def AddBook():
-  if request.method == 'POST':
-      BookId=request.form['BookId']
-      BookTitle=request.form['BookTitle']
-      BookAuthor=request.form['BookAuthor']
-      BookGenre=request.form['BookGenre']
-      BookPublisher=request.form['BookPublisher']
-      BookYear=request.form['BookYear']
-      BookStatus=request.form['BookStatus']
-      print(BookTitle)
-      cursor = mysql.cursor();
-      insert_query= ''' INSERT INTO Books (BookId,BookTitle,BookAuthor,BookGenre,BookPublisher,BookYear,BookStatus) VALUES('{}','{}','{}');'''.format(BookId,BookTitle,BookAuthor,BookGenre,BookPublisher,BookYear,BookStatus)
-      app.logger.info(insert_query)
-      cursor.execute(insert_query)
-      mysql.commit()
-      flash("Successfully Inserted A Book into DB", "success")
-      return jsonify(isError= False,
-                message= "Success",
-                statusCode= 200,
-                # data= data
-                ) 
-      200
+# @app.route("/add_book", methods=['POST'])
+# def AddBook():
+#   if request.method == 'POST':
+#       BookId=request.form['BookId']
+#       BookTitle=request.form['BookTitle']
+#       BookAuthor=request.form['BookAuthor']
+#       BookGenre=request.form['BookGenre']
+#       BookPublisher=request.form['BookPublisher']
+#       BookYear=request.form['BookYear']
+#       BookStatus=request.form['BookStatus']
+#       print(BookTitle)
+#       cursor = mysql.cursor();
+#       insert_query= ''' INSERT INTO Books (BookId,BookTitle,BookAuthor,BookGenre,BookPublisher,BookYear,BookStatus) VALUES('{}','{}','{}');'''.format(BookId,BookTitle,BookAuthor,BookGenre,BookPublisher,BookYear,BookStatus)
+#       app.logger.info(insert_query)
+#       cursor.execute(insert_query)
+#       mysql.commit()
+#       flash("Successfully Inserted A Book into DB", "success")
+#       return jsonify(isError= False,
+#                 message= "Success",
+#                 statusCode= 200,
+#                 # data= data
+#                 ) 
+#       200
       #  return render_template('signup.html',"Success: Added a book!")
   # else:   
       #  return render_template('signup.html')
 
 
-# @app.route("/userreservation")#URL leading to method
-# def userreservation(): # Name of the method
-#     if request.method == 'POST':
-#       room_type = request.form['room_type']
-#       check_in_date = request.form['room_type']
-#       check_out_date = request.form['check_out_date']
-#       return render_template('reservation_confirmation.html',room_type=room_type)
-#     else:
-#       return render_template('user_form.html') 
+@app.route("/userreservation")
+def userreservation(): 
+    # if request.method == 'POST':
+    #   room_type = request.form['room_type']
+    #   check_in_date = request.form['room_type']
+    #   check_out_date = request.form['check_out_date']
+    #   return render_template('reservation_confirmation.html',room_type=room_type)
+    # else:
+      return render_template('user_form.html') 
 
-# @app.route("/adminform")#URL leading to method
-# def adminform(): # Name of the method
-#     if request.method == 'POST':
-#        titleID = request.form['titleID']
-#        title = request.form['title']
-#        author = request.form['author']
-#        genre = request.form['genre']
-#        pulisher = request.form['year']
-#        year = request.form['availability']
-#        cursor = mysql.cursor()
-#        insert_query = '''INSERT INTO books (titleID, title, author, genre, pubisher, year, availability) VALUES (%s, %s, %s, %s, %s, %s, %s)'''
-#        cursor.execute(insert_query, (titleID, title, author, genre, pubisher, year, availability))
-#        mysql.commit()
-#        cursor.close()
-#     return render_template('admin_form.html')
+@app.route("/adminform")
+def adminform(): 
+    # if request.method == 'POST':
+    #    titleID = request.form['titleID']
+    #    title = request.form['title']
+    #    author = request.form['author']
+    #    genre = request.form['genre']
+    #    pulisher = request.form['year']
+    #    year = request.form['availability']
+    #    cursor = mysql.cursor()
+    #    insert_query = '''INSERT INTO books (titleID, title, author, genre, pubisher, year, availability) VALUES (%s, %s, %s, %s, %s, %s, %s)'''
+    #    cursor.execute(insert_query, (titleID, title, author, genre, pubisher, year, availability))
+    #    mysql.commit()
+    #    cursor.close()
+    return render_template('admin_form.html')
 # --------------------------------------------------------
 # @app.route("/add", methods=['GET', 'POST']) #Add Student
 # def add():

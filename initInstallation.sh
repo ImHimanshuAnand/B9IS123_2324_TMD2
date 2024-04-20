@@ -8,7 +8,7 @@ sudo apt -y install python3-pip
 pip3 install flask
 
 sudo apt -y install apache2 python3-certbot-apache # Setup SSL certificate for https
-sudo certbot --apache
+sudo certbot --apache --himanshuhome1@gmail.com --A --N --$AZUREVM_HOSTNAME --1
 sudo cp /etc/letsencrypt/live/$AZUREVM_HOSTNAME/cert.pem .
 sudo cp /etc/letsencrypt/live/$AZUREVM_HOSTNAME/privkey.pem .
 sudo chown `whoami` *.pem

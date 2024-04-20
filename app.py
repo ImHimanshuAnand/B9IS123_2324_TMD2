@@ -6,7 +6,7 @@ import json
 # MySQL Database Connection
 mysql = mysql.connector.connect(user='web', password='webPass',
   host='localhost',
-  database='Lib18')
+  database='Library1')
 
 from logging.config import dictConfig
 

@@ -3,7 +3,7 @@ import mysql.connector
 from flask_cors import CORS
 import json
 
-MySQL Database Connection
+# MySQL Database Connection
 mysql = mysql.connector.connect(
   user='web', 
   password='webPass',

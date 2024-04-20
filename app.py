@@ -255,7 +255,6 @@ def adminform():
          return render_template('admin_form.html')
        except Exception as e:
          app.logger.error("Error")
-         return "Error"
     else:
        return render_template('admin_form.html')
 # --------------------------------------------------------

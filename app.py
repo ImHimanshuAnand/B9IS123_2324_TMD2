@@ -262,7 +262,7 @@ def adminform():
            cursor.execute(insert_query)
            mysql.commit()
           #  return redirect(url_for('adminform'))
-           return render_template('adminform.html')
+           return render_template('admin_form.html')
         except Exception as e:
            return jsonify({'error': str(e)}),500
       else:

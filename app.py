@@ -237,21 +237,20 @@ def BookReservations():
     else:
        return render_template('user_form.html') 
 
-@app.route("/adminform")
+@app.route("/adminform", methods=['Get','POST'])
 def adminform(): 
-    # if request.method == 'POST':
-    #    titleID = request.form['titleID']
-    #    title = request.form['title']
-    #    author = request.form['author']
-    #    genre = request.form['genre']
-    #    pulisher = request.form['year']
-    #    year = request.form['availability']
-    #    cursor = mysql.cursor()
-    #    insert_query = '''INSERT INTO books (titleID, title, author, genre, pubisher, year, availability) VALUES (%s, %s, %s, %s, %s, %s, %s)'''
-    #    cursor.execute(insert_query, (titleID, title, author, genre, pubisher, year, availability))
-    #    mysql.commit()
-    #    cursor.close()
-    return render_template('admin_form.html')
+    if request.method == 'POST':
+       BookTitle = request.form['BookTitle']
+       BookAuthor = request.form['BookAuthor']
+       BookGenre = request.form['BookGenre']
+       BookPublisher = request.form['BookPublisher']
+       BookYear = request.form['BookYear']
+       cursor = mysql.cursor()
+       insert_query = '''INSERT INTO Admin (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear ) VALUES (%s, %s, %s, %s, %s)'''
+       app.logger.info(insert_query)
+       cursor.execute(insert_query, (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear))
+       mysql.commit()
+       return render_template('admin_form.html')
 # --------------------------------------------------------
 # @app.route("/add", methods=['GET', 'POST']) #Add Student
 # def add():

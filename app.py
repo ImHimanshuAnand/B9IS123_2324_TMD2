@@ -55,25 +55,25 @@ login_manager.login_view = 'login'
 
 # User class for Flask-Login 
 class Users(UserMixin):
-    def __init__(self,UserID,UserType,Email):
-        self.id = UserID
+    def __init__(self,UserId,UserType,Email):
+        self.id = UserId
         self.UserType = UserType
         self.Email =  Email
 
 #Loader Function for Flask Login
 @login_manager.user_loader
-def load_user(UserID):
-  user = query_user_by_id(UserID)
+def load_user(UserId):
+  user = query_user_by_id(UserId)
   if user:
     return user
   else:
     return None 
 
 # Database query function to get user by ID 
-def query_user_by_id(UserID):
-     select_query = 'SELECT * FROM Users WHERE UserID = %s '
+def query_user_by_id(UserId):
+     select_query = 'SELECT * FROM Users WHERE UserId = %s '
      cursor = mysql.cursor()
-     cursor.execute(select_query,(UserID))
+     cursor.execute(select_query,(UserId))
      user = cursor.fetchone()
 
      if user:
@@ -129,17 +129,23 @@ def login():
           if session['UserType'] == 'Admin':
             return redirect(url_for('adminform'));
           else:
-            return redirect(url_for('userreservation'));
+            return redirect(url_for('BookReservations'));
        else:
           return 'INVALID USERNAME OR PASSWORD'
 
     return render_template('login.html')
 
-
+@app.route('/logout', methods=['POST'])
+def logout:
+  logout_user()
+  session.pop('UserId', None)
+  session.pop('UserType', None)
+  session.pop('Email', None)
+  return redierct(url_for('login'))
 
 @app.route("/")
-def main():
-  return "Hello, The app is started!"
+def defaultPage():
+  return "Hello, Welcome to the Library"
 
 # @app.route('/book',methods=["GET","POST","PUT","DELETE"])
 # def book():

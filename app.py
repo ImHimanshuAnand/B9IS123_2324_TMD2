@@ -224,8 +224,8 @@ def defaultPage():
 @login_required
 def BookReservations(): 
   if current_user.UserType == "Student":
-    try:
-      if request.method == 'POST':
+    if request.method == 'POST':
+      try:
          UserName = request.form['UserName']
          UserPhone = request.form['UserPhone']
          BookTitle = request.form['BookTitle']
@@ -236,19 +236,20 @@ def BookReservations():
          app.logger.info(insert_query)
          cursor.execute(insert_query)
          mysql.commit()
-         return render_template(url_for('BookReservations'))
-    except Exception as e:
+         return redirect(url_for('BookReservations'))
+      except Exception as e:
          return jsonify({'error': str(e)}),500
-         
-    # else:
-    #    return render_template('user_form.html') 
+    else:
+       return render_template('user_form.html') 
+  else:
+    return "Unauthorized",403     
 
 @app.route("/adminform", methods=['Get','POST'])
 @login_required
 def adminform(): 
   if current_user.UserType == "Admin":
-     try:
-        if request.method == 'POST':
+      if request.method == 'POST':
+        try:
            BookTitle = request.form['BookTitle']
            BookAuthor = request.form['BookAuthor']
            BookGenre = request.form['BookGenre']
@@ -259,9 +260,13 @@ def adminform():
            app.logger.info(insert_query)
            cursor.execute(insert_query)
            mysql.commit()
-           return render_template(url_for('adminform'))
-     except Exception as e:
+           return redirect(url_for('adminform'))
+        except Exception as e:
            return jsonify({'error': str(e)}),500
+      else:
+       return render_template('adminform.html') 
+  else:
+    return "Unauthorized",403       
          
 # --------------------------------------------------------
 # @app.route("/add", methods=['GET', 'POST']) #Add Student

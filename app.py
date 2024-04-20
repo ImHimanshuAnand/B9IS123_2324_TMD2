@@ -266,7 +266,7 @@ def adminform():
         except Exception as e:
            return jsonify({'error': str(e)}),500
       else:
-       return render_template('adminform.html') 
+       return render_template('admin_form.html') 
   # else:
   #   return "Unauthorized",403       
          

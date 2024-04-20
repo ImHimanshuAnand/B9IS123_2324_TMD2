@@ -221,9 +221,9 @@ def defaultPage():
 
 
 @app.route("/BookReservations", methods=['Get','POST']) 
-@login_required
+# @login_required
 def BookReservations(): 
-  if current_user.UserType == "Student":
+  # if current_user.UserType == "Student":
     if request.method == 'POST':
       try:
          UserName = request.form['UserName']
@@ -241,13 +241,13 @@ def BookReservations():
          return jsonify({'error': str(e)}),500
     else:
        return render_template('user_form.html') 
-  else:
-    return "Unauthorized",403     
+  # else:
+  #   return "Unauthorized",403     
 
 @app.route("/adminform", methods=['Get','POST'])
-@login_required
+# @login_required
 def adminform(): 
-  if current_user.UserType == "Admin":
+  # if current_user.UserType == "Admin":
       if request.method == 'POST':
         try:
            BookTitle = request.form['BookTitle']
@@ -265,8 +265,8 @@ def adminform():
            return jsonify({'error': str(e)}),500
       else:
        return render_template('adminform.html') 
-  else:
-    return "Unauthorized",403       
+  # else:
+  #   return "Unauthorized",403       
          
 # --------------------------------------------------------
 # @app.route("/add", methods=['GET', 'POST']) #Add Student

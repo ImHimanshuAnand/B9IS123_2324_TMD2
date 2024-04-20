@@ -136,6 +136,7 @@ def login():
     return render_template('login.html')
 
 
+
 @app.route("/")
 def main():
   return "Hello, The app is started!"
@@ -214,50 +215,48 @@ def main():
 
 
 @app.route("/BookReservations", methods=['Get','POST']) 
+@login_required
 def BookReservations(): 
-    if request.method == 'POST':
-       UserName = request.form['UserName']
-       UserPhone = request.form['UserPhone']
-       BookTitle = request.form['BookTitle']
-       IssueDate = request.form['IssueDate']
-       ReturnDate = request.form['ReturnDate']
-
-       cursor = mysql.cursor()
-       insert_query='''INSERT INTO BookReservations (UserName, UserPhone, BookTitle, IssueDate, ReturnDate) VALUES('{}','{}','{}','{}','{}');'''.format (UserName, UserPhone, BookTitle, IssueDate, ReturnDate)
-       app.logger.info(insert_query)
-
-       try:
+  if current_user.UserType == "Student":
+    try:
+      if request.method == 'POST':
+         UserName = request.form['UserName']
+         UserPhone = request.form['UserPhone']
+         BookTitle = request.form['BookTitle']
+         IssueDate = request.form['IssueDate']
+         ReturnDate = request.form['ReturnDate']
+         cursor = mysql.cursor()
+         insert_query='''INSERT INTO BookReservations (UserName, UserPhone, BookTitle, IssueDate, ReturnDate) VALUES('{}','{}','{}','{}','{}');'''.format (UserName, UserPhone, BookTitle, IssueDate, ReturnDate)
+         app.logger.info(insert_query)
          cursor.execute(insert_query)
          mysql.commit()
-         return render_template('user_form.html')
-       except Exception as e:
-         app.logger.error("Error")
-         return "Error"
+         return render_template(url_for('BookReservations'))
+    except Exception as e:
+         return jsonify({'error': str(e)}),500
          
-    else:
-       return render_template('user_form.html') 
+    # else:
+    #    return render_template('user_form.html') 
 
 @app.route("/adminform", methods=['Get','POST'])
+@login_required
 def adminform(): 
-    if request.method == 'POST':
-       BookTitle = request.form['BookTitle']
-       BookAuthor = request.form['BookAuthor']
-       BookGenre = request.form['BookGenre']
-       BookPublisher = request.form['BookPublisher']
-       BookYear = request.form['BookYear']
-       cursor = mysql.cursor()
-       insert_query = '''INSERT INTO Admin (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear ) VALUES ('{}','{}','{}','{}','{}')'''.format (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear)
-       app.logger.info(insert_query)
-
-       try:
-         cursor.execute(insert_query)
-         mysql.commit()
-         return render_template('admin_form.html')
-       except Exception as e:
-         app.logger.error("Error")
-         return "Error"
-    else:
-       return render_template('admin_form.html')
+  if current_user.UserType == "Admin":
+     try:
+        if request.method == 'POST':
+           BookTitle = request.form['BookTitle']
+           BookAuthor = request.form['BookAuthor']
+           BookGenre = request.form['BookGenre']
+           BookPublisher = request.form['BookPublisher']
+           BookYear = request.form['BookYear']
+           cursor = mysql.cursor()
+           insert_query = '''INSERT INTO Admin (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear ) VALUES ('{}','{}','{}','{}','{}')'''.format (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear)
+           app.logger.info(insert_query)
+           cursor.execute(insert_query)
+           mysql.commit()
+           return render_template(url_for('adminform'))
+     except Exception as e:
+           return jsonify({'error': str(e)}),500
+         
 # --------------------------------------------------------
 # @app.route("/add", methods=['GET', 'POST']) #Add Student
 # def add():

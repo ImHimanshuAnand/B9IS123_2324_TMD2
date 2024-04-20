@@ -246,11 +246,11 @@ def adminform():
        BookPublisher = request.form['BookPublisher']
        BookYear = request.form['BookYear']
        cursor = mysql.cursor()
-       insert_query = '''INSERT INTO Admin (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear ) VALUES (%s, %s, %s, %s, %s)'''
+       insert_query = '''INSERT INTO Admin (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear ) VALUES (%s, %s, %s, %s, %s)'''.format (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear)
        app.logger.info(insert_query)
 
        try:
-         cursor.execute(insert_query, (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear))
+         cursor.execute(insert_query,)
          mysql.commit()
          return render_template('admin_form.html')
        except Exception as e:

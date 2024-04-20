@@ -47,11 +47,12 @@ def book():
   elif request.method == "PUT":
     books.append(request.get_json())
   elif request.method == "DELETE":
+    books.append(request.get_json())
   elif request.method == "GET":
     return jsonify(books)
   else 
     return "UNKNOWN HTTP METHOD"
-    
+
 @app.route("/add_book", methods=['POST'])
 def AddBook():
   if request.method == 'POST':

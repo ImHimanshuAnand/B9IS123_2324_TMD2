@@ -16,7 +16,7 @@ db_config = {
     'host': 'localhost',
     'user': 'web',
     'password': 'webPass',
-    'database': 'Library1'
+    'database': 'LibraryManagementSystem'
 }
 
 # Function to establish MySQL connection

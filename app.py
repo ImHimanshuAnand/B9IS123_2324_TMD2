@@ -3,25 +3,25 @@ import mysql.connector
 from flask_cors import CORS
 import json
 
-# MySQL Database Connection
-# mysql = mysql.connector.connect(
-#   user='web', 
-#   password='webPass',
-#   host='localhost',
-#   database='Library1'
-# )
+MySQL Database Connection
+mysql = mysql.connector.connect(
+  user='web', 
+  password='webPass',
+  host='localhost',
+  database='LibraryManagementSystem'
+)
 
-# MySQL connection configuration
-db_config = {
-    'host': 'localhost',
-    'user': 'web',
-    'password': 'webPass',
-    'database': 'LibraryManagementSystem'
-}
+# # MySQL connection configuration
+# db_config = {
+#     'host': 'localhost',
+#     'user': 'web',
+#     'password': 'webPass',
+#     'database': 'LibraryManagementSystem'
+# }
 
 # Function to establish MySQL connection
-def get_db():
-    return mysql.connector.connect(**db_config)
+# def get_db():
+#     return mysql.connector.connect(**db_config)
 
 
 from logging.config import dictConfig
@@ -137,9 +137,10 @@ def signup():
        app.logger.info(insert_query)
        cursor.execute(insert_query)
        mysql.commit()
-       flash("Signup successfull! Please Login.", "success")
-       signup_alert = "Signup successfull! Please wait a moment."    
-       return render_template('signup.html', signup_alert=signup_alert)
+       return "successfull"
+      #  flash("Signup successfull! Please Login.", "success")
+      #  signup_alert = "Signup successfull! Please wait a moment."    
+      #  return render_template('signup.html', signup_alert=signup_alert)
     else:   
        return render_template('signup.html')
   

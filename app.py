@@ -4,9 +4,25 @@ from flask_cors import CORS
 import json
 
 # MySQL Database Connection
-mysql = mysql.connector.connect(user='web', password='webPass',
-  host='localhost',
-  database='Library1')
+# mysql = mysql.connector.connect(
+#   user='web', 
+#   password='webPass',
+#   host='localhost',
+#   database='Library1'
+# )
+
+# MySQL connection configuration
+db_config = {
+    'host': 'localhost',
+    'user': 'web',
+    'password': 'webPass',
+    'database': 'Library1'
+}
+
+# Function to establish MySQL connection
+def get_db():
+    return mysql.connector.connect(**db_config)
+
 
 from logging.config import dictConfig
 
@@ -36,19 +52,47 @@ CORS(app)
 def main():
   return "Hello, The app is started!"
 
-books = [
-    { 'description': 'salary', 'amount': 5000 }
-]
-@app.route('/book')
+@app.route('/book',methods=["GET","POST","PUT","DELETE"])
 def book():
   if request.method == 'POST':
-    books.append(request.get_json())
-    return '', 200
+    # data = request.json
+    # title = data['title']
+    # print(title,author)
+    # BookId=request.form['BookId']
+    BookTitle=request.form['BookTitle']
+    BookAuthor=request.form['BookAuthor']
+    BookGenre=request.form['BookGenre']
+    BookPublisher=request.form['BookPublisher']
+    BookYear=request.form['BookYear']
+    BookStatus=request.form['BookStatus']    
+    # print(BookId)
+    
+    db = get_db()
+    cursor = db.cursor()
+    query= '''INSERT INTO Books (BookId,BookTitle,BookAuthor,BookGenre,BookPublisher,BookYear,BookStatus) VALUES('{}','{}','{}','{}','{}','{}','{}');'''.format(100,BookTitle,BookAuthor,BookGenre,BookPublisher,BookYear,BookStatus)
+    cursor.execute(query)
+    db.commit()
+    db.close()
+    return jsonify({'message': 'Book created successfully'})
   elif request.method == "PUT":
     books.append(request.get_json())
   elif request.method == "DELETE":
-    books.append(request.get_json())
+    print(request.view_args('book_id'))
+    book_id=request.args.get('book_id')
+    # book_id=request.args.get('book_id')
+    db = get_db()
+    cursor = db.cursor()
+    books = cursor.execute("DELETE FROM Books WHERE id = %s", (100))
+    db.commit()
+    db.close()
+    return jsonify({'message': 'Book deleted successfully'})
   elif request.method == "GET":
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM Books")
+    books = cursor.fetchall()
+    db.commit()
+    db.close()
     return jsonify(books)
   else:
     return "UNKNOWN HTTP METHOD"
@@ -180,4 +224,5 @@ def adminform(): # Name of the method
 
 #Run the flask app at port 8080
 if __name__ == "__main__":
-  app.run(host='0.0.0.0',port='8080',ssl_context=('cert.pem', 'privkey.pem'))
+  app.run(debug=True,host='0.0.0.0',port='8080')
+  # app.run(debug=True,host='0.0.0.0',port='8080',ssl_context=('cert.pem', 'privkey.pem'))

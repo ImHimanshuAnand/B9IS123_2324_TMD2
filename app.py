@@ -136,13 +136,6 @@ def login():
     return render_template('login.html')
 
 
-
-
-<<<<<<< HEAD
- @app.route("/add", methods=['GET', 'POST']) #Add Student
- def add():
-=======
-
 @app.route("/")
 def main():
   return "Hello, The app is started!"

@@ -1,13 +1,20 @@
-CREATE DATABASE library;
+CREATE DATABASE LibraryManagementSystem;
 
-USE library;
+USE LibraryManagementSystembrary;
 
 
-CREATE TABLE login (userType VARCHAR(50),email VARCHAR(255), password VARCHAR(255), loginID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(loginID));
+CREATE TABLE Users (UserId INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(UserID), UserType ENUM('Admin', 'Student'),Email VARCHAR(50),Password VARCHAR(50));
 
-INSERT INTO login(userType,email,password) values ("User", "fake@mydbs.ie" , "12345");
+INSERT INTO Users (UserType, Email, Password) VALUES ('Admin', 'admin@example.com', 'admin_password'),('Student', 'student@example.com', 'student_password');"
 
-SELECT * FROM login;	
+SELECT * FROM Users;	
+
+----------------------------------
+
+
+
+
+
 
 
 CREATE TABLE user (userID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(UserID),name VARCHAR(80),phonenumber BIGINT,booktitle VARCHAR(255),issuedate TIMESTAMP,returndate TIMESTAMP);
@@ -22,3 +29,6 @@ CREATE TABLE admin(titleID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(titleID),titl
 INSERT INTO admin(title,author,genre,publisher,year,availability) values("Pride and Prejudice","Jane Austen","Fiction","Dover Pubications","2024-07-01","Available");
 
 SELECT * FROM admin;
+
+
+

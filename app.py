@@ -225,9 +225,15 @@ def BookReservations():
        cursor = mysql.cursor()
        insert_query='''INSERT INTO BookReservations (UserName, UserPhone, BookTitle, IssueDate, ReturnDate) VALUES('{}','{}','{}','{}','{}');'''.format (UserName, UserPhone, BookTitle, IssueDate, ReturnDate)
        app.logger.info(insert_query)
-       cursor.execute(insert_query)
-       mysql.commit()
-       return render_template('user_form.html')
+
+       try:
+         cursor.execute(insert_query)
+         mysql.commit()
+         return render_template('user_form.html')
+       except Exception as e:
+         app.logger.error("Error")
+         return "Error"
+         
     else:
        return render_template('user_form.html') 
 

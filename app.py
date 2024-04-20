@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request, jsonify, flash
+from flask import Flask, render_template, request,redirect, url_for, session, jsonify, flash
+from flask_login import LoginManager, login_required, UserMixin, login_user, logout_user, current_user
+from flask_bcrypt import Bcrypt
 import mysql.connector
 from flask_cors import CORS
 import json
@@ -47,7 +49,95 @@ dictConfig({
 app = Flask(__name__)
 app.secret_key = 'Library_Management_secret_key'
 CORS(app)
-# My SQL Instance configurations
+bcrypt = Bcrypt(app)
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+
+# User class for Flask-Login 
+Class Users(UserMixin):
+   def __init__(self,UserID,UserType,Email):
+      self.id = UserID
+      self.UserType = UserType
+      self.Email =  Email
+
+#Loader Function for Flask Login
+@login_manager.user_loader
+def load_user(UserID):
+  user = query_user_by_id(UserID)
+  if user:
+    return user
+  else:
+    return None 
+
+# Database query function to get user by ID 
+def query_user_by_id(UserID):
+     select_query = 'SELECT * FROM Users WHERE UserID = %s '
+     cursor = mysql.cursor()
+     cursor.execute(select_query,(UserID))
+     user = cursor.fetchone()
+
+     if user:
+      return Users(user[0],user[1],user[2])
+     else:
+      return None 
+
+
+#Route for user signup
+@app.route("/signup", methods=['GET', 'POST'])
+def signup():
+    signup_alert = None
+    if request.method == 'POST':
+       UserType = request.form['UserType']
+       Email = request.form['Email']
+       Password = request.form['Password']
+       print(UserType,Email,Password)
+
+       hashed_password = bcrypt.genarate_password_hash(Password)
+
+       cursor = mysql.cursor();
+       insert_query= ''' INSERT INTO Users (UserType, Email, Password) VALUES('{}','{}','{}');'''.format(UserType,Email,Password)
+       app.logger.info(insert_query)
+       cursor.execute(insert_query)
+       mysql.commit()
+
+       flash("Signup successfull! Please Login.", "success")
+       signup_alert = "Signup successfull! Please wait a moment."    
+       return render_template('login.html', signup_alert=signup_alert)
+    else:   
+       return render_template('signup.html')
+  
+# Route for user login
+@app.route("/login" ,methods=['GET', 'POST'])
+def login(): 
+    if request.method == 'POST':
+       UserType = request.form['UserType']
+       Email = request.form['Email']
+       Password = request.form['Password']
+
+       cursor = mysql.cursor();
+       select_query = '''SELECT * FROM Users WHERE UserType='{}' AND Email='{}';'''
+       app.logger.info(select_query)
+       cursor.execute(select_query, (UserType, Email))
+       user = cursor.fetchone()
+       if user and bcrypt.check_password_hash(user[3], Password):
+          session['UserID'] = user[0]
+          session['UserType'] = user[1]
+          session['Email'] = user[2]
+          
+          login_user(Users(user[0],user[1],user[2]))
+
+          if session['UserType'] == 'Admin':
+            return redirect(url_for('add_book'));
+          else:
+            return redirect(url_for('book'));
+       else:
+          return 'INVALID USERNAME OR PASSWORD'
+
+     return render_template('login.html')
+
+
+
+
 
 @app.route("/")
 def main():
@@ -125,68 +215,33 @@ def AddBook():
   # else:   
       #  return render_template('signup.html')
 
-#Route for user signup
-@app.route("/signup", methods=['GET', 'POST'])
-def signup():
-    signup_alert = None
-    if request.method == 'POST':
-       UserType = request.form['UserType']
-       Email = request.form['Email']
-       Password = request.form['Password']
-       print(UserType,Email,Password)
-       cursor = mysql.cursor();
-       insert_query= ''' INSERT INTO Users (UserType, Email, Password) VALUES('{}','{}','{}');'''.format(UserType,Email,Password)
-       app.logger.info(insert_query)
-       cursor.execute(insert_query)
-       mysql.commit()
-       flash("Signup successfull! Please Login.", "success")
-       signup_alert = "Signup successfull! Please wait a moment."    
-       return render_template('login.html', signup_alert=signup_alert)
-    else:   
-       return render_template('signup.html')
-  
 
-# @app.route("/login")#URL leading to method
-# def login(): # Name of the method
+# @app.route("/userreservation")#URL leading to method
+# def userreservation(): # Name of the method
 #     if request.method == 'POST':
-#         email = request.form['email']
-#         password = request.form['password']
-#         cursor = mysql.cursor();
-#         select_query = '''SELECT * FROM login WHERE email='{}' AND password='{}';'''
-#         app.logger.info(select_query)
-#         cursor.execute(select_query)
-#         user = cursor.fetchone()
-#         if user:
-#           # User exists, redirect to login or some other page 
+#       room_type = request.form['room_type']
+#       check_in_date = request.form['room_type']
+#       check_out_date = request.form['check_out_date']
+#       return render_template('reservation_confirmation.html',room_type=room_type)
+#     else:
+#       return render_template('user_form.html') 
 
-#     # return render_template('login.html')
-
-@app.route("/userreservation")#URL leading to method
-def userreservation(): # Name of the method
-    if request.method == 'POST':
-      room_type = request.form['room_type']
-      check_in_date = request.form['room_type']
-      check_out_date = request.form['check_out_date']
-      return render_template('reservation_confirmation.html',room_type=room_type)
-    else:
-      return render_template('user_form.html') 
-
-@app.route("/adminform")#URL leading to method
-def adminform(): # Name of the method
-    if request.method == 'POST':
-       titleID = request.form['titleID']
-       title = request.form['title']
-       author = request.form['author']
-       genre = request.form['genre']
-       pulisher = request.form['year']
-       year = request.form['availability']
-       cursor = mysql.cursor()
-       insert_query = '''INSERT INTO books (titleID, title, author, genre, pubisher, year, availability) VALUES (%s, %s, %s, %s, %s, %s, %s)'''
-       cursor.execute(insert_query, (titleID, title, author, genre, pubisher, year, availability))
-       mysql.commit()
-       cursor.close()
-    return render_template('admin_form.html')
-
+# @app.route("/adminform")#URL leading to method
+# def adminform(): # Name of the method
+#     if request.method == 'POST':
+#        titleID = request.form['titleID']
+#        title = request.form['title']
+#        author = request.form['author']
+#        genre = request.form['genre']
+#        pulisher = request.form['year']
+#        year = request.form['availability']
+#        cursor = mysql.cursor()
+#        insert_query = '''INSERT INTO books (titleID, title, author, genre, pubisher, year, availability) VALUES (%s, %s, %s, %s, %s, %s, %s)'''
+#        cursor.execute(insert_query, (titleID, title, author, genre, pubisher, year, availability))
+#        mysql.commit()
+#        cursor.close()
+#     return render_template('admin_form.html')
+# --------------------------------------------------------
 # @app.route("/add", methods=['GET', 'POST']) #Add Student
 # def add():
 #   if request.method == 'POST':

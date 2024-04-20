@@ -44,8 +44,8 @@
            <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">User Type</label>
                 <select id="userType" name="UserType" required>
-                    <option value="User">User</option>
-                    <option value="Admin">Student</option>
+                    <option value="Student">Student</option>
+                    <option value="Admin">Admin</option>
                 </select>
            </div>
            <div class="mb-3">
@@ -65,8 +65,26 @@
           </form>
             <br>
 
-            <P>Already have an account? <a href="login.html">Login Here</a></P>
+            <P>Already have an account? <a href="{{url_for('login')}}">Login Here</a></P>
         </div>
+           {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}"> 
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %} 
+           {% endwith %}        
         </form>
+        <script>
+            var signupAlert = "{{ signup_alert}}";
+
+            if(signupAlert){
+                setTimeout(function(){
+                    window.location.href= "{{url_for('login')}}";
+                }, 200);
+            }
+        </script>
     </body>
 </html>

@@ -92,7 +92,7 @@ def signup():
        Password = request.form['Password']
        print(UserType,Email,Password)
 
-       hashed_password = bcrypt.genarate_password_hash(Password)
+       hashed_password = bcrypt.generate_password_hash(Password)
 
        cursor = mysql.cursor();
        insert_query= ''' INSERT INTO Users (UserType, Email, Password) VALUES('{}','{}','{}');'''.format(UserType,Email,Password)

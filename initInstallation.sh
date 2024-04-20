@@ -1,19 +1,27 @@
 #! /bin/sh
 
-# Update repo list
-sudo apt update
+AZUREVM_HOSTNAME="library1.northeurope.cloudapp.azure.com"
 
-# Install Virtual env
-python3 -m venv venv
+sudo apt update # Update repo list
+sudo  apt -y upgrade
+sudo apt -y install python3-pip
+pip3 install flask
 
-# Activate Virtual env
-source venv/bin/activate
+sudo apt -y install apache2 python3-certbot-apache # Setup SSL certificate for https
+sudo certbot --apache
+sudo cp /etc/letsencrypt/live/$AZUREVM_HOSTNAME/cert.pem .
+sudo cp /etc/letsencrypt/live/$AZUREVM_HOSTNAME/privkey.pem .
+sudo chown `whoami` *.pem
 
-# Install Flask dependency
-pip3 install Flask
+sudo apt -y install mariadb-server # mariadb-client libmariadbclient-dev
+pip3 install flask_cors mysql-connector-python
+# sudo mysql
 
-# Install MariaDB
-sudo apt install mariadb-server --yes
+# python3 -m venv venv # Install Virtual env
+# source venv/bin/activate # Activate Virtual env
+# pip3 install Flask # Install Flask dependency
+# sudo apt install mariadb-server --yes # Install MariaDB
+
 
 # Press Y or use "yes" command
 # yes

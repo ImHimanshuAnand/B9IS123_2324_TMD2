@@ -1,8 +1,14 @@
 # MySQL connection details
-MYSQL_USER="root"
-MYSQL_PASSWORD="hv7460"
+MYSQL_USER="web"
+MYSQL_PASSWORD="webPass"
 MYSQL_HOST="localhost"
-MYSQL_DATABASE="Lib18"
+MYSQL_DATABASE="Library1"
+
+sudo mysql << EOF
+CREATE USER '$MYSQL_USER'@'$MYSQL_HOST' IDENTIFIED BY '$MYSQL_PASSWORD';
+GRANT ALL PRIVILEGES ON *.* to '$MYSQL_USER'@'$MYSQL_HOST';
+CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
+EOF
 
 # INCREMENTING Database Count of MYSQL_DATABASE to avoid below error.
 # ERROR 1062 (23000) at line 2: Duplicate entry '1' for key 'PRIMARY'
@@ -19,9 +25,7 @@ sudo mysql -e "SHOW DATABASES;"
 # MySQL command to create tables
 CREATE_TABLE_QUERY_USERS="
 CREATE TABLE IF NOT EXISTS $MYSQL_DATABASE.Users (
-    UserId INT PRIMARY KEY,
-    StudentID INT,
-    AdminID INT,
+    UserId INT PRIMARY KEY AUTO_INCREMENT,
     UserType ENUM('Admin', 'Student'),
     Email VARCHAR(50),
     Password VARCHAR(50)
@@ -43,8 +47,8 @@ sudo mysql -e "USE $MYSQL_DATABASE; DESCRIBE Users;"
 # MySQL command to insert data into tables
 INSERT_DATA_QUERY_USERS="
 INSERT INTO $MYSQL_DATABASE.Users (UserId, StudentID, AdminID, UserType, Email, Password)
-VALUES (1, NULL, 101, 'Admin', 'admin@example.com', 'admin_password'),
-       (2, 1001, NULL, 'Student', 'student@example.com', 'student_password');"
+VALUES (1, 'Admin', 'admin@example.com', 'admin_password'),
+       (2, 'Student', 'student@example.com', 'student_password');"
        
 sudo mysql -D$MYSQL_DATABASE -e "$INSERT_DATA_QUERY_USERS"
 
@@ -53,7 +57,7 @@ sudo mysql -D$MYSQL_DATABASE -e "$INSERT_DATA_QUERY_USERS"
 echo "USE $MYSQL_DATABASE; select * from Users" | sudo mysql | column -t
 # Successfully Prints Table data onto terminal output after 3-4 attempts
 
-USE_MYDB="USE Lib18;"
+USE_MYDB="USE $MYSQL_DATABASE;"
 # WRITE SQL QUERIES before EOF block
 sudo mysql << EOF
 $USE_MYDB
@@ -80,6 +84,10 @@ CREATE TABLE IF NOT EXISTS BookReservations (
     FOREIGN KEY (UserId) REFERENCES Users(UserId),
     FOREIGN KEY (BookId) REFERENCES Books(BookId)
 );
+
+ALTER TABLE Books AUTO_INCREMENT=5001;
+ALTER TABLE BookReservations AUTO_INCREMENT=1001;
+
 
 INSERT INTO Books (BookId, BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear, BookStatus)
 VALUES (1, 'The Great Gatsby', 'F. Scott Fitzgerald', 'Fiction', 'Scribner', '1925-04-10', 'Available'),

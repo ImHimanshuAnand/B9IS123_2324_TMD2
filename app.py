@@ -46,6 +46,14 @@ def get_books():
 def add_book():
     books.append(request.get_json())
     return '', 200
+@app.route('/book', methods=['PUT'])
+def update_book():
+    books.append(request.get_json())
+    return '', 200
+@app.route('/book', methods=['DELETE'])
+def delete_book():
+    books.append(request.get_json())
+    return '', 200
 
 @app.route("/add_book", methods=['POST'])
 def AddBook():

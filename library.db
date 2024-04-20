@@ -1,6 +1,6 @@
 CREATE DATABASE LibraryManagementSystem;
 
-USE LibraryManagementSystembrary;
+USE LibraryManagementSystem;
 
 
 CREATE TABLE Users (UserId INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(UserID), UserType ENUM('Admin', 'Student'),Email VARCHAR(50),UNIQUE (Email),Password VARCHAR(50));
@@ -13,16 +13,11 @@ SELECT * FROM Users;
 ----------------------------------
 
 
+CREATE TABLE bookreservation (bookID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(BookID),name VARCHAR(80),phonenumber BIGINT,booktitle VARCHAR(255),issuedate TIMESTAMP,returndate TIMESTAMP);
 
+INSERT INTO bookreservation(name,phonenumber,booktitle,issuedate,returndate) values("Anusha", "4278202858" ,"Secret of Taj", "2024-08-02", "2024-09-02");
 
-
-
-
-CREATE TABLE user (userID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(UserID),name VARCHAR(80),phonenumber BIGINT,booktitle VARCHAR(255),issuedate TIMESTAMP,returndate TIMESTAMP);
-
-INSERT INTO user(name,phonenumber,booktitle,issuedate,returndate) values("Anusha", "4278202858" ,"Secret of Taj", "2024-08-02", "2024-09-02");
-
-SELECT * FROM user;
+SELECT * FROM bookreservation;
 
 
 CREATE TABLE admin(titleID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(titleID),title VARCHAR(255),author VARCHAR(255),genre VARCHAR(255),publisher VARCHAR(255),year TIMESTAMP,availability VARCHAR(80));

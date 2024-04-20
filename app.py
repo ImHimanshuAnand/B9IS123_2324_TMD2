@@ -36,6 +36,17 @@ CORS(app)
 def main():
   return "Hello, The app is started!"
 
+books = [
+    { 'description': 'salary', 'amount': 5000 }
+]
+@app.route('/book')
+def get_books():
+    return jsonify(books)
+@app.route('/book', methods=['POST'])
+def add_book():
+    books.append(request.get_json())
+    return '', 200
+
 @app.route("/add_book", methods=['POST'])
 def AddBook():
   if request.method == 'POST':
@@ -123,8 +134,6 @@ def adminform(): # Name of the method
        mysql.commit()
        cursor.close()
     return render_template('admin_form.html')
-
-
 
 # @app.route("/add", methods=['GET', 'POST']) #Add Student
 # def add():

@@ -250,11 +250,12 @@ def adminform():
        app.logger.info(insert_query)
 
        try:
-         cursor.execute(insert_query,)
+         cursor.execute(insert_query)
          mysql.commit()
          return render_template('admin_form.html')
        except Exception as e:
          app.logger.error("Error")
+         return "Error"
     else:
        return render_template('admin_form.html')
 # --------------------------------------------------------

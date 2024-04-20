@@ -40,21 +40,18 @@ books = [
     { 'description': 'salary', 'amount': 5000 }
 ]
 @app.route('/book')
-def get_books():
+def book():
+  if request.method == 'POST':
+    books.append(request.get_json())
+    return '', 200
+  elif request.method == "PUT":
+    books.append(request.get_json())
+  elif request.method == "DELETE":
+  elif request.method == "GET":
     return jsonify(books)
-@app.route('/book', methods=['POST'])
-def add_book():
-    books.append(request.get_json())
-    return '', 200
-@app.route('/book', methods=['PUT'])
-def update_book():
-    books.append(request.get_json())
-    return '', 200
-@app.route('/book', methods=['DELETE'])
-def delete_book():
-    books.append(request.get_json())
-    return '', 200
-
+  else 
+    return "UNKNOWN HTTP METHOD"
+    
 @app.route("/add_book", methods=['POST'])
 def AddBook():
   if request.method == 'POST':

@@ -236,7 +236,8 @@ def BookReservations():
          app.logger.info(insert_query)
          cursor.execute(insert_query)
          mysql.commit()
-         return redirect(url_for('BookReservations'))
+        #  return redirect(url_for('BookReservations'))
+         return render_template('user_form.html') 
       except Exception as e:
          return jsonify({'error': str(e)}),500
     else:
@@ -260,7 +261,8 @@ def adminform():
            app.logger.info(insert_query)
            cursor.execute(insert_query)
            mysql.commit()
-           return redirect(url_for('adminform'))
+          #  return redirect(url_for('adminform'))
+           return render_template('adminform.html')
         except Exception as e:
            return jsonify({'error': str(e)}),500
       else:

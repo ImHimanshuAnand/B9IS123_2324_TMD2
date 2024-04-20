@@ -21,32 +21,17 @@ SELECT * FROM Admin;
 --------------------------
 CREATE TABLE BookReservations (BookReservationId INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(BookReservationId),UserName VARCHAR(50),     UserPhone BIGINT(10),     BookTitle VARCHAR(255),     IssueDate DATETIME,     ReturnDate DATETIME,     UserId INT,     BookId INT,     FOREIGN KEY (UserId) REFERENCES Users(UserId),      FOREIGN KEY (BookId) REFERENCES Admin(BookId)  );
 
-<<<<<<< HEAD
 INSERT INTO BookReservations (UserName, UserPhone, BookTitle, IssueDate, ReturnDate)
 VALUES ('John Doe', 1234567890, 'The Great Gatsby', '2024-04-18 10:00:00', '2024-04-25 10:00:00'),
        ('Jane Smith', 9876543210, 'To Kill a Mockingbird', '2024-04-20 14:00:00', '2024-04-27 14:00:00');
-=======
-CREATE TABLE bookreservation (bookID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(BookID),name VARCHAR(80),phonenumber BIGINT,booktitle VARCHAR(255),issuedate TIMESTAMP,returndate TIMESTAMP);
->>>>>>> 5805f38cab014c99600fbe341a0efea5c441bdd2
 
-<<<<<<< HEAD
 SELECT * FROM BookReservations;
-=======
-INSERT INTO bookreservation(name,phonenumber,booktitle,issuedate,returndate) values("Anusha", "4278202858" ,"Secret of Taj", "2024-08-02", "2024-09-02");
->>>>>>> 5805f38cab014c99600fbe341a0efea5c441bdd2
-
-SELECT * FROM bookreservation;
-
-
-<<<<<<< HEAD
+-------------------------
 
 
 
 
 
-=======
-CREATE TABLE admin(titleID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(titleID),title VARCHAR(255),author VARCHAR(255),genre VARCHAR(255),publisher VARCHAR(255),year TIMESTAMP,availability VARCHAR(80));
->>>>>>> 5805f38cab014c99600fbe341a0efea5c441bdd2
 
 
 

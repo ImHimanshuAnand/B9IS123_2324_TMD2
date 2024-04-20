@@ -248,7 +248,7 @@ def adminform():
 # --------------------------------------------------------
 # @app.route("/add", methods=['GET', 'POST']) #Add Student
 # def add():
->>>>>>> 350504b0e40ca9687389974212c46f7d957b6308
+
 #   if request.method == 'POST':
 #     name = request.form['name']
 #     email = request.form['email']

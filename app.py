@@ -102,7 +102,7 @@ def signup():
 
        flash("Signup successfull! Please Login.", "success")
        signup_alert = "Signup successfull! Please wait a moment."    
-       return render_template('login.html', signup_alert=signup_alert)
+       return render_template('signup.html', signup_alert=signup_alert)
     else:   
        return render_template('signup.html')
   

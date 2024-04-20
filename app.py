@@ -45,6 +45,7 @@ dictConfig({
 
 # Flask app initialization 
 app = Flask(__name__)
+app.secret_key = 'Library_Management_secret_key'
 CORS(app)
 # My SQL Instance configurations
 

@@ -137,10 +137,9 @@ def signup():
        app.logger.info(insert_query)
        cursor.execute(insert_query)
        mysql.commit()
-       return "successfull"
-      #  flash("Signup successfull! Please Login.", "success")
-      #  signup_alert = "Signup successfull! Please wait a moment."    
-      #  return render_template('signup.html', signup_alert=signup_alert)
+       flash("Signup successfull! Please Login.", "success")
+       signup_alert = "Signup successfull! Please wait a moment."    
+       return render_template('signup.html', signup_alert=signup_alert)
     else:   
        return render_template('signup.html')
   

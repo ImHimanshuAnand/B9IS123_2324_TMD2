@@ -128,6 +128,7 @@ def AddBook():
 #Route for user signup
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
+    signup_alert = None
     if request.method == 'POST':
        UserType = request.form['UserType']
        Email = request.form['Email']
@@ -140,7 +141,7 @@ def signup():
        mysql.commit()
        flash("Signup successfull! Please Login.", "success")
        signup_alert = "Signup successfull! Please wait a moment."    
-       return render_template('signup.html', signup_alert=signup_alert)
+       return render_template('login.html', signup_alert=signup_alert)
     else:   
        return render_template('signup.html')
   

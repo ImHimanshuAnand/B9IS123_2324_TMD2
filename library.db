@@ -9,6 +9,8 @@ INSERT INTO Users (UserType, Email, Password) VALUES ('Admin', 'admin@example.co
 
 SELECT * FROM Users;	
 
+ALTER TABLE Users ADD CONSTRAINT unique_Email UNIQUE (Email);
+
 ----------------------------------
 
 

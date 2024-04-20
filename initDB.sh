@@ -26,6 +26,8 @@ sudo mysql -e "SHOW DATABASES;"
 CREATE_TABLE_QUERY_USERS="
 CREATE TABLE IF NOT EXISTS $MYSQL_DATABASE.Users (
     UserId INT PRIMARY KEY AUTO_INCREMENT,
+    StudentID INT,
+    AdminID INT,
     UserType ENUM('Admin', 'Student'),
     Email VARCHAR(50),
     Password VARCHAR(50)
@@ -47,8 +49,8 @@ sudo mysql -e "USE $MYSQL_DATABASE; DESCRIBE Users;"
 # MySQL command to insert data into tables
 INSERT_DATA_QUERY_USERS="
 INSERT INTO $MYSQL_DATABASE.Users (UserId, StudentID, AdminID, UserType, Email, Password)
-VALUES (1, 'Admin', 'admin@example.com', 'admin_password'),
-       (2, 'Student', 'student@example.com', 'student_password');"
+VALUES (1, NULL, 101, 'Admin', 'admin@example.com', 'admin_password'),
+       (2, 101, NULL, 'Student', 'student@example.com', 'student_password');"
        
 sudo mysql -D$MYSQL_DATABASE -e "$INSERT_DATA_QUERY_USERS"
 
@@ -119,12 +121,11 @@ echo "Database setup completed successfully."
 
 
 # Dropping the unwanted Attributes
-USE_MYDB="USE Lib18;"
+USE_MYDB="USE $MYSQL_DATABASE;"
 # WRITE SQL QUERIES before EOF block
 sudo mysql << EOF
 $USE_MYDB
 Alter Table Users DROP Column StudentID;
 Alter Table Users DROP Column AdminID;
-
 EOF
 

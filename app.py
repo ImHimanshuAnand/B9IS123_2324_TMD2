@@ -175,7 +175,9 @@ def BookReservations():
            app.logger.info(insert_query)
            cursor.execute(insert_query)
            mysql.commit()
-           return redirect(url_for('BookReservations'))
+           flash("Book is Reserved successfull!", "success")
+           alert = "Reservation successfull!" 
+           return redirect(url_for('BookReservations'), alert= alert)
          else:
             return jsonify({'error': 'Book is not available for reservation'}), 400  
       except Exception as e:

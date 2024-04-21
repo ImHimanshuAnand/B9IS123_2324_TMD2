@@ -66,8 +66,9 @@
             <br>
 
             <P>Already have an account? <a href="{{url_for('login')}}">Login Here</a></P>
-        </div>
-           {% with messages = get_flashed_messages(with_categories=true) %}
+        </div>        
+        </form>
+        {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
                     <div class="flash-message {{ category }}"> 
@@ -75,15 +76,14 @@
                     </div>
                 {% endfor %}
             {% endif %} 
-           {% endwith %}        
-        </form>
+        {% endwith %}
         <script>
             var signupAlert = "{{ signup_alert}}";
 
             if(signupAlert){
                 setTimeout(function(){
                     window.location.href= "{{url_for('login')}}";
-                }, 200);
+                }, 500);
             }
         </script>
     </body>

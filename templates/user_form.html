@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="en">
 <head>
     <meta charset="UTH-8">
     <meta name="viewport" content="width=device-width", initial-scale=1.0">
@@ -47,7 +47,7 @@
         <input type="Email" id="Email" name="Email" required><br><br>
 
         <label for="Phone Number">Phone Number:</label>
-        <input type="number" id="Phone Number" name="UserPhone" required><br><br>
+        <input type="phonenumber" id="phonenumber" name="UserPhone" required><br><br>
 
         <label for="book_title">Book Title:</label>
         <input type="text" id="book title" name="BookTitle" required><br><br>
@@ -60,5 +60,23 @@
 
         <button type="submit">Submit</button>
     </form>
-</body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash-message {{ category }}"> 
+                {{ message }}
+            </div>
+        {% endfor %}
+      {% endif %} 
+    {% endwith %}
+<script>
+    var Alert = "{{ alert}}";
 
+    if(Alert){
+        setTimeout(function(){
+            window.location.href= "{{url_for('reservation')}}";
+        }, 500);
+    }
+</script>
+</body>
+</html>

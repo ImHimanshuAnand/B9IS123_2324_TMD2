@@ -49,6 +49,7 @@
     <table>
       <thead>
         <tr>
+          <th>#</th>
           <th>Title</th>
           <th>Author</th>
           <th>Genre</th>
@@ -60,12 +61,24 @@
       <tbody>
         {% for book in books %}
         <tr>
+          <td>{{ loop.index }}</td>
           <td>{{ book.BookTitle }}</td>
           <td>{{ book.BookAuthor }}</td>
           <td>{{ book.BookGenre }}</td>
           <td>{{ book.BookPublisher }}</td>
           <td>{{ book.BookYear }}</td>
-          <td>{{ book.BookStatus }}</td>
+          <!-- <td>{{ book.BookStatus }}</td> -->
+          <td>
+            <select class="status-select" onchange="updateStatus(this, '{{ book.BookId }}')">
+              {% for option in ['Available', 'Not Available', 'On Hold'] %}
+              {% if book.BookStatus == option %}
+              <option value="{{ option }}" selected>{{ option }}</option>
+              {% else %}
+              <option value="{{ option }}">{{ option }}</option>
+              {% endif %}
+              {% endfor %}
+            </select>
+          </td>
         </tr>
         {% endfor %}
       </tbody>
@@ -73,9 +86,38 @@
 
   </div>
   <!-- Bootstrap JS (Optional) -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <!-- SLIM VERSION OF JQUERY DOESNOT HAVE AJAX FEATURE -->
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    function updateStatus(selectElement, bookId) {
+      var selectedValue = selectElement.value;
+      // urlencoded formdata
+      var formData = 'BookStatus=' + encodeURIComponent(selectedValue) + '&BookId=' + encodeURIComponent(bookId);
+      // formdata
+      // var formData = new FormData();
+      // formData.append('BookStatus', selectedValue);
+      // formData.append('BookId', bookId);
+
+      $.ajax({
+        url: '/api/books/' + bookId,
+        type: 'PUT',
+        data: formData,
+        // ---for formdata
+        // processData: false,
+        // contentType: false, 
+        contentType: 'application/x-www-form-urlencoded', // urlencoded formdata
+        success: function (response) {
+          console.log('Status updated successfully');
+        },
+        error: function (xhr, status, error) {
+          console.error('Error updating status:', error);
+        }
+      });
+    }
+  </script>
 </body>
 
 </html>

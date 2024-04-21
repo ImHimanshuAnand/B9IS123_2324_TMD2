@@ -77,8 +77,8 @@ def get_books():
       }
       books_list.append(book_dict)
   # print(books_data,books_list)
-  # return jsonify(data)
-  return render_template("books.html", books=books_list)
+  return jsonify(books_list)
+  # return render_template("book_list.html", books=books_list)
 
 
 @books_bp.route('/books/<int:BookId>',methods=["GET"])
@@ -95,6 +95,7 @@ def get_book_by_id(BookId):
 
 @books_bp.route('/books',methods=["POST"])
 def add_book():
+    print(request.form)
     # data = request.json
     # title = data['title']
     # print(title,author)

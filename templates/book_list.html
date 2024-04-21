@@ -59,7 +59,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for book in books %}
+        {% for book in api_data %}
         <tr>
           <td>{{ loop.index }}</td>
           <td>{{ book.BookTitle }}</td>
@@ -117,6 +117,39 @@
         }
       });
     }
+  </script>
+  <script>
+    fetch('/api/books')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('tbody');
+        tableBody.innerHTML = ''; // Clear existing table rows
+        data.forEach((book, index) => {
+          const row = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${book.BookTitle}</td>
+                        <td>${book.BookAuthor}</td>
+                        <td>${book.BookGenre}</td>
+                        <td>${book.BookPublisher}</td>
+                        <td>${book.BookYear}</td>
+                        <td>
+                          <select>
+                            ${["Available", "Not Available", "On Hold"].map((el) => {
+            if (book.BookStatus === el) {
+              return `<option value=${el} selected>${el}</option>`
+            } else {
+              return `<option value=${el}>${el}</option>`
+            }
+          })}
+                          </select>
+                        </td>
+                    </tr>
+                `;
+          tableBody.innerHTML += row;
+        });
+      })
+      .catch(error => console.error('Error fetching API data:', error));
   </script>
 </body>
 

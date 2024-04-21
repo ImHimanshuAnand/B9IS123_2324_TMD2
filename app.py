@@ -94,6 +94,14 @@ def signup():
     else:   
        return render_template('signup.html')
   
+@app.route("/books/list",methods=["GET"])
+def book_list():
+  return render_template("book_list.html")
+
+@app.route("/books/add",methods=["GET"])
+def book_add():
+  return render_template("book_add.html")
+
 # Route for user login
 @app.route("/login" ,methods=['GET', 'POST'])
 def login(): 

@@ -6,6 +6,11 @@
 3. Himanshu Jasraj Anand - 20020118 - hv7460@gmail.com
 4. Rizwana Basheer Basha - 20031946 - rizwanabasheer067@gmail.com
 
+LIBRARY MANAGEMENT SYSTEM
+
+
+
+
 [Flask Project Article](https://realpython.com/flask-project/)
 
 <!-- YT LINK: https://www.youtube.com/watch?v=GZbeL5AcTgw -->
@@ -49,42 +54,12 @@ sudo systemctl start mysql.service
 <!-- Check if installed or not -->
 sudo mysql
 
-Tables Creation:
-
-# login table
-CREATE DATABASE library;
-
-USE library;
-
-CREATE TABLE login (userType VARCHAR(50),email VARCHAR(255), password VARCHAR(255), loginID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(loginID));
-
-INSERT INTO login(userType,email,password) values ("User", "fake@mydbs.ie" , "12345");
-
-SELECT * FROM login;	
-
-# user table 																					
-CREATE DATABASE library;
-
-USE library;
-
-CREATE TABLE user (userID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(UserID),name VARCHAR(80),phonenumber BIGINT,booktitle VARCHAR(255),issuedate TIMESTAMP,returndate TIMESTAMP);
-
-INSERT INTO user(name,phonenumber,booktitle,issuedate,returndate) values("Anusha", "4278202858" ,"Secret of Taj", "2024-08-02", "2024-09-02");
-
-SELECT * FROM user;
 
 
 
-# admin table
-CREATE DATABASE library;
 
-USE library;
 
-CREATE TABLE admin(titleID INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(titleID),title VARCHAR(255),author VARCHAR(255),genre VARCHAR(255),publisher VARCHAR(255),year TIMESTAMP,availability VARCHAR(80));
 
-INSERT INTO admin(title,author,genre,publisher,year,availability) values("Pride and Prejudice","Jane Austen","Fiction","Dover Pubications","2024-07-01","Available");
-
-SELECT * FROM admin;
 
 
 <!-- Code From Prof. Paul's Moodle Page, to setup mariaDB -->

@@ -126,7 +126,7 @@ def login():
           login_user(Users(user[0],user[1],user[2]))
 
           if session['UserType'] == 'Admin':
-            return redirect(url_for('adminform'));
+            return redirect(url_for('book_list'));
           else:
             return redirect(url_for('BookReservations'));
        else:

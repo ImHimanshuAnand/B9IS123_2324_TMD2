@@ -28,7 +28,7 @@
             margin: 8px 0;
             box-sizing: border-box;
             }
-            button {
+            .logout-button, button {
             background-color: #4caf50;
             color: white;
             padding: 10px 15px;
@@ -43,7 +43,7 @@
     <header>
         <h1>Welcome, {{session['Email']}}</h1>
         <div class="logout-button">
-            <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+            <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
         </div>
     </header>
     <div class="searchbar">

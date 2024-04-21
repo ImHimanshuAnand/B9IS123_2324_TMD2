@@ -112,9 +112,9 @@ def login():
        Password = request.form['Password']
        print(Email,Password)
        cursor = mysql.cursor();
-       select_query = '''SELECT * FROM Users WHERE Email='{}' AND Password='{}';'''
+       select_query = '''SELECT * FROM Users WHERE Email='{}' AND Password='{}';'''.format(Email,Password)
        app.logger.info(select_query)
-       cursor.execute(select_query,(Email,Password))
+       cursor.execute(select_query)
        user = cursor.fetchone()
        print(user)
        if user:

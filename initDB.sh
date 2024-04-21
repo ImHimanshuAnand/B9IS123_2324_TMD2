@@ -10,9 +10,6 @@ GRANT ALL PRIVILEGES ON *.* to '$MYSQL_USER'@'$MYSQL_HOST';
 CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
 EOF
 
-# INCREMENTING Database Count of MYSQL_DATABASE to avoid below error.
-# ERROR 1062 (23000) at line 2: Duplicate entry '1' for key 'PRIMARY'
-
 # MySQL command to create database
 CREATE_DB_QUERY="CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"
 
@@ -33,18 +30,10 @@ CREATE TABLE IF NOT EXISTS $MYSQL_DATABASE.Users (
     Password VARCHAR(50)
 );"
 
-# -uUSER, -pPASSWORD, -tTABLEFORMAT, -DDBNAME
-# -D flag is for selecting which database to use, just like "USE <database_name>; , $SHELLVARNAME is replaced by value of shell variable"
-# else this error -> ERROR 1046 (3D000) at line 1: No database selected
 sudo mysql -D$MYSQL_DATABASE -e "$CREATE_TABLE_QUERY_USERS"
 
 # SQL keywords are case-insensitive but not Table,Columns,Key Names,etc
 sudo mysql -e "USE $MYSQL_DATABASE; SELECT * FROM Users;"
-# Todo: not printing tables to script's output even after 4-5 attempts
-sudo mysql -t -e "USE $MYSQL_DATABASE; SELECT Email FROM Users;"
-
-# To Check Table Schema, DESC <TableName> or DESCRIBE <TableName>
-sudo mysql -e "USE $MYSQL_DATABASE; DESCRIBE Users;"
 
 # MySQL command to insert data into tables
 INSERT_DATA_QUERY_USERS="
@@ -53,11 +42,6 @@ VALUES (1, NULL, 101, 'Admin', 'admin@example.com', 'admin_password'),
        (2, 101, NULL, 'Student', 'student@example.com', 'student_password');"
        
 sudo mysql -D$MYSQL_DATABASE -e "$INSERT_DATA_QUERY_USERS"
-
-# echo "select value1, value2 from table" | mysql -uUSER -pPASS | column -t
-# echo "select * from table" | mysql -uUSER -pPASS | column -t
-echo "USE $MYSQL_DATABASE; select * from Users" | sudo mysql | column -t
-# Successfully Prints Table data onto terminal output after 3-4 attempts
 
 USE_MYDB="USE $MYSQL_DATABASE;"
 # WRITE SQL QUERIES before EOF block
@@ -119,27 +103,11 @@ VALUES (1, 'John Doe', 1234567890, 'The Great Gatsby', '2024-04-18 10:00:00', '2
 
 EOF
 
-# ERROR 1046 (3D000) at line 1: No database selected
-# SOLVED: USE <dbName>; before queries
-
-# ERROR 1049 (42000) at line 3: Unknown database '$MYSQL_DATABASE'
-# ERROR 1049 (42000) at line 1: Unknown database '${MYSQL_DATABASE}'
-# ERROR 1064 (42000) at line 1: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '$USE_MYDB
-# SOLVED: replaced double quoted "EOF" to wihout quotes EOF
-
 echo "Database setup completed successfully."
-
-# to run scripts
-# source command (which is an alias for .)
-# example: 
-# . test.sh
-# source test.sh
-
 
 
 # Dropping the unwanted Attributes
 USE_MYDB="USE $MYSQL_DATABASE;"
-# WRITE SQL QUERIES before EOF block
 sudo mysql << EOF
 $USE_MYDB
 Alter Table Users DROP Column StudentID;

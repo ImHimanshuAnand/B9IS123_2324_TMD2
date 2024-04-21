@@ -84,7 +84,6 @@
         .then(book => {
           console.log(book)
           console.log(book[0])
-          // document.getElementById('BookId').value = book[0];
           document.getElementById('BookTitle').value = book[1];
           document.getElementById('BookAuthor').value = book[2];
           document.getElementById('BookGenre').value = book[3];
@@ -99,20 +98,11 @@
       return
       fetch(`/api/books`, {
         method: 'GET',
-        // headers: {
-        //   'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-        // },
-        // body: formBody
       })
         .then(response => {
           if (!response.ok) {
             throw new Error('Failed to Get book by ID');
           }
-          // alert('Book Added successfully');
-          // const url = new URL(location);
-          // url.searchParams.set("foo", "bar");
-          // history.pushState({}, "", "/books/list");
-          // window.location.href = "/books/list"
         })
         .catch(error => {
           alert(error)
@@ -163,9 +153,6 @@
             throw new Error('Failed to add book');
           }
           alert('Book Edited successfully');
-          // const url = new URL(location);
-          // url.searchParams.set("foo", "bar");
-          // history.pushState({}, "", "/books/list");
           window.location.href = "/books/list"
         })
         .catch(error => {

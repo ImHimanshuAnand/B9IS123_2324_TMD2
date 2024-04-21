@@ -13,7 +13,7 @@ INSERT INTO Users (UserType, Email, Password) VALUES ('Admin', 'admin@example.co
 
 SELECT * FROM Users;	
 
-----------------------
+
 CREATE TABLE Books (
     BookId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     BookTitle VARCHAR(255),
@@ -49,7 +49,7 @@ VALUES
 ('War and Peace', 'Leo Tolstoy', 'Historical Fiction', 'The Russian Messenger', 1869, 'Available');
 
 SELECT * FROM Books;
---------------------------------------
+
 
 CREATE TABLE BookReservations (
     BookReservationId INT NOT NULL AUTO_INCREMENT,
@@ -85,7 +85,7 @@ SELECT
     (SELECT BookId FROM Books WHERE BookTitle = 'The Great Gatsby' ) AS BookId;
 
 SELECT * FROM BookReservations;
--------------------------
+
 
 
 

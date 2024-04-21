@@ -133,21 +133,11 @@
 
     function sendForm(e) {
       console.log(e)
-      // var selectedValue = selectElement.value;
-      // urlencoded formdata
-      // var formData = 'BookTitle=' + encodeURIComponent() + '&BookId=' + encodeURIComponent(bookId);
-      // formdata
-      // var formData = new FormData();
-      // formData.append('BookStatus', selectedValue);
-      // formData.append('BookId', bookId);
-
+    
       $.ajax({
         url: '/api/books',
         type: 'POST',
-        data: formData,
-        // ---for formdata
-        // processData: false,
-        // contentType: false, 
+        data: formData, 
         contentType: 'application/x-www-form-urlencoded', // urlencoded formdata
         success: function (response) {
           console.log('Status updated successfully');

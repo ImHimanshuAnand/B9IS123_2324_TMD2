@@ -188,8 +188,6 @@ def BookReservations():
   else:
     return "Unauthorized",403  
 
-
-
 # Route for Logout
 @app.route('/logout')
 def logout():
@@ -198,70 +196,6 @@ def logout():
   session.pop('UserType', None)
   session.pop('Email', None)
   return redirect(url_for('login'))     
-# --------------------------------------------------------------------------
-# @app.route("/adminform", methods=['Get','POST'])
-# @login_required
-# def adminform(): 
-#    if current_user.UserType == "Admin":
-#       if request.method == 'POST':
-#         try:
-#            BookTitle = request.form['BookTitle']
-#            BookAuthor = request.form['BookAuthor']
-#            BookGenre = request.form['BookGenre']
-#            BookPublisher = request.form['BookPublisher']
-#            BookYear = request.form['BookYear']
-#            cursor = mysql.cursor()
-#            insert_query = '''INSERT INTO Admin (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear ) VALUES ('{}','{}','{}','{}','{}')'''.format (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear)
-#            app.logger.info(insert_query)
-#            cursor.execute(insert_query)
-#            mysql.commit()
-#            return redirect(url_for('adminform'))
-#           #  return render_template('admin_form.html')
-#         except Exception as e:
-#            return jsonify({'error': str(e)}),500
-#       else:
-#        return render_template('admin_form.html') 
-#    else:
-#      return "Unauthorized",403       
-         
-# --------------------------------------------------------
-# @app.route("/add", methods=['GET', 'POST']) #Add Student
-# def add():
-
-#   if request.method == 'POST':
-#     name = request.form['name']
-#     email = request.form['email']
-#     print(name,email)
-#     cur = mysql.cursor() #create a connection to the SQL instance
-#     s='''INSERT INTO students(studentName, email) VALUES('{}','{}');'''.format(name,email)
-#     app.logger.info(s)
-#     cur.execute(s)
-#     mysql.commit()
-#   else:
-#     return render_template('add.html')
-
-#   return '{"Result":"Success"}'
-  
-# @app.route("/") #Default - Show Data
-# def hello(): # Name of the method
-#   cur = mysql.cursor() #create a connection to the SQL instance
-#   cur.execute('''SELECT * FROM students''') # execute an SQL statment
-#   rv = cur.fetchall() #Retreive all rows returend by the SQL statment
-#   Results=[]
-#   for row in rv: #Format the Output Results and add to return string
-#     Result={}
-#     Result['Name']=row[0].replace('\n',' ')
-#     Result['Email']=row[1]
-#     Result['ID']=row[2]
-#     Results.append(Result)
-#   response={'Results':Results, 'count':len(Results)}
-#   ret=app.response_class(
-#     response=json.dumps(response),
-#     status=200,
-#     mimetype='application/json'
-#   )
-#   return ret #Return the data in a string format
-
 
 #Run the flask app at port 8080
 if __name__ == "__main__":

@@ -160,7 +160,7 @@ def BookReservations():
          book_data = cursor.fetchone()
 
          if book_data and book_data[0] == "Available" :
-           insert_query='''INSERT INTO BookReservations (UserName, Email, UserPhone, BookTitle, IssueDate, ReturnDate,UserId,BookId) VALUES('{}','{}','{}','{}','{}','{}');'''.format (UserName, Email, UserPhone, BookTitle, IssueDate, ReturnDate, current_user.UserId,book_data[1])
+           insert_query='''INSERT INTO BookReservations (UserName, Email, UserPhone, BookTitle, IssueDate, ReturnDate,UserId,BookId) VALUES('{}','{}','{}','{}','{}','{}',(SELECT UserId FROM Users WHERE Email= '{}'),'{}');'''.format (UserName, Email, UserPhone, BookTitle, IssueDate, ReturnDate, current_user.UserId,book_data[1])
            app.logger.info(insert_query)
            cursor.execute(insert_query)
            mysql.commit()

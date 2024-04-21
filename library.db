@@ -46,6 +46,7 @@ VALUES
 
 SELECT * FROM Books;
 --------------------------------------
+
 CREATE TABLE BookReservations (
     BookReservationId INT NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (BookReservationId),

@@ -72,7 +72,7 @@ def query_user_by_id(UserId):
 # Route for HomePage
 @app.route("/")
 def defaultPage():
-  return "Hello, Welcome to the Library"
+  return render_template('home.html')
 
 #Route for user signup
 @app.route("/signup", methods=['GET', 'POST'])

@@ -80,14 +80,12 @@ def signup():
        Password = request.form['Password']
        print(UserType,Email,Password)
 
-       hashed_password = bcrypt.generate_password_hash(Password)
-
        cursor = mysql.cursor();
-       insert_query= ''' INSERT INTO Users (UserType, Email, Password) VALUES('{}','{}','{}');'''.format(UserType,Email,hashed_password)
+       insert_query= ''' INSERT INTO Users (UserType, Email, Password) VALUES('{}','{}','{}');'''.format(UserType,Email,Password)
        app.logger.info(insert_query)
        cursor.execute(insert_query)
        mysql.commit()
-       print(hashed_password) 
+       print(Password) 
        flash("Signup successfull! Please Login.", "success")
        signup_alert = "Signup successfull! Please wait a moment."    
        return render_template('signup.html', signup_alert=signup_alert)
@@ -111,12 +109,12 @@ def login():
        Password = request.form['Password']
        print(Email,Password)
        cursor = mysql.cursor();
-       select_query = '''SELECT * FROM Users WHERE UserType='{}' AND Email='{}';'''
+       select_query = '''SELECT * FROM Users WHERE Email='{}' AND Password='{}';'''
        app.logger.info(select_query)
-       cursor.execute(select_query, (UserType, Email))
+       cursor.execute(select_query, (Email, Password))
        user = cursor.fetchone()
        print(user)
-       if user and bcrypt.check_password_hash(user[3], Password):
+       if user:
           
           session['UserID'] = user[0]
           session['UserType'] = user[1]

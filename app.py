@@ -178,7 +178,7 @@ def BookReservations():
 
            flash("Book is Reserved successfull!", "success")
            alert = "Reservation successfull!" 
-           return redirect(url_for('BookReservations'))
+           return redirect(url_for('reservation'))
          else:
             return jsonify({'error': 'Book is not available for reservation'}), 400  
       except Exception as e:

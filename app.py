@@ -117,7 +117,7 @@ def login():
           if session['UserType'] == 'Admin':
             return redirect(url_for('book_list'));
           else:
-            return redirect(url_for('BookReservations'));
+            return redirect(url_for('reservation'));
        else:
           return 'INVALID USERNAME OR PASSWORD'
     else:
@@ -142,12 +142,12 @@ def book_edit(bookId):
 
 # Route for User_Dashboard 
 @app.route("/reservation",methods=["GET"])
-# @login_required
+@login_required
 def reservation():
-  # if current_user.UserType == "Student":
+  if current_user.UserType == "Student":
     return render_template("User_dashboard.html")
-  # else:
-  #   return "Unauthorized",403
+  else:
+    return "Unauthorized",403
 
 
 # Route for User BookReservation

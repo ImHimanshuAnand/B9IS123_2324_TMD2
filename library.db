@@ -76,7 +76,7 @@ SELECT
     'The Great Gatsby' AS BookTitle, 
     '2024-04-18 10:00:00' AS IssueDate, 
     '2024-04-25 10:00:00' AS ReturnDate, 
-    (SELECT UserId FROM Users WHERE Email = 'student3@gmail.com') AS UserId, 
+    (SELECT UserId FROM Users WHERE Email = 'student3@gmail.com' ) AS UserId, 
     (SELECT BookId FROM Books WHERE BookTitle = 'The Great Gatsby') AS BookId;
 
 SELECT * FROM BookReservations;

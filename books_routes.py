@@ -8,7 +8,7 @@ db_config = {
     'host': 'localhost',
     'user': 'web',
     'password': 'webPass',
-    'database': 'Library1'
+    'database': 'LibraryManagementSystem'
 }
 
 # Function to establish MySQL connection
@@ -40,13 +40,18 @@ def get_books():
   sort_order = request.args.get('sort_order', default='asc')
   filter_param = request.args.get('filter_param', default=None)
   filter_value = request.args.get('filter_value', default=None)
+  search_by = request.args.get('search_by', default=None)
+  search_value = request.args.get('search_value', default=None)
   print(request.args)
   # Construct SQL query based on parameters
-  sql_query = "SELECT * FROM Books"
+  sql_query = "SELECT * FROM Books WHERE 1=1"
   if filter_param and filter_value:
-    sql_query += f" WHERE {filter_param} = '{filter_value}'"
+    sql_query += f" AND {filter_param} = '{filter_value}'"
+  if search_by and search_value:
+    sql_query += f" AND {search_by} LIKE '%{search_value}%'"
   # Sort by title
-  sql_query += f" ORDER BY {sort_by} {sort_order}"
+  if sort_by and sort_order:
+    sql_query += f" ORDER BY {sort_by} {sort_order}"
   # DB connection
   db = get_db()
   cursor = db.cursor()

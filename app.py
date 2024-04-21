@@ -35,7 +35,7 @@ dictConfig({
 
 # Flask app initialization 
 app = Flask(__name__)
-app.register_blueprint(books_bp, url_prefix='/books')
+app.register_blueprint(books_bp, url_prefix='/api')
 app.secret_key = 'Library_Management_secret_key'
 CORS(app)
 bcrypt = Bcrypt(app)
@@ -69,7 +69,6 @@ def query_user_by_id(UserId):
       return Users(user[0],user[1],user[2])
      else:
       return None 
-
 
 #Route for user signup
 @app.route("/signup", methods=['GET', 'POST'])
@@ -136,34 +135,9 @@ def logout():
 def defaultPage():
   return "Hello, Welcome to the Library"
 
-
-# @app.route("/add_book", methods=['POST'])
-# def AddBook():
-#   if request.method == 'POST':
-#       BookId=request.form['BookId']
-#       BookTitle=request.form['BookTitle']
-#       BookAuthor=request.form['BookAuthor']
-#       BookGenre=request.form['BookGenre']
-#       BookPublisher=request.form['BookPublisher']
-#       BookYear=request.form['BookYear']
-#       BookStatus=request.form['BookStatus']
-#       print(BookTitle)
-#       cursor = mysql.cursor();
-#       insert_query= ''' INSERT INTO Books (BookId,BookTitle,BookAuthor,BookGenre,BookPublisher,BookYear,BookStatus) VALUES('{}','{}','{}');'''.format(BookId,BookTitle,BookAuthor,BookGenre,BookPublisher,BookYear,BookStatus)
-#       app.logger.info(insert_query)
-#       cursor.execute(insert_query)
-#       mysql.commit()
-#       flash("Successfully Inserted A Book into DB", "success")
-#       return jsonify(isError= False,
-#                 message= "Success",
-#                 statusCode= 200,
-#                 # data= data
-#                 ) 
-#       200
-      #  return render_template('signup.html',"Success: Added a book!")
-  # else:   
-      #  return render_template('signup.html')
-
+@app.route("/add_book", methods=['GET'])
+def AddBook():
+  return render_template('signup.html')
 
 @app.route("/BookReservations", methods=['Get','POST']) 
 # @login_required

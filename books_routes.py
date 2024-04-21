@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, render_template, jsonify
 import mysql.connector
 
 books_bp = Blueprint('books', __name__)
@@ -33,7 +33,7 @@ def get_db():
 # Add more route handlers as needed
 
 # Define books endpoint, Books APIs
-@books_bp.route('',methods=["GET"])
+@books_bp.route('/books',methods=["GET"])
 def get_books():
   # Get sort parameters from query string
   sort_by = request.args.get('sort_by', default='BookId')
@@ -59,24 +59,41 @@ def get_books():
   cursor.execute(sql_query)
   print(sql_query)
   # Fetch the results
-  data = cursor.fetchall()
+  books_data = cursor.fetchall()
   db.commit()
   db.close()
-  # print(data)
-  return jsonify(data)
+  # Convert the results to a list of dictionaries
+  books_list = []
+  for book in books_data:
+      print(book[0])
+      book_dict = {
+          'BookId': book[0],
+          'BookTitle': book[1],
+          'BookAuthor': book[2],
+          'BookGenre': book[3],
+          'BookPublisher': book[4],
+          'BookYear': book[5],
+          'BookStatus': book[6],
+      }
+      books_list.append(book_dict)
+  # print(books_data,books_list)
+  # return jsonify(data)
+  return render_template("books.html", books=books_list)
 
-@books_bp.route('/<int:BookId>',methods=["GET"])
+
+@books_bp.route('/books/<int:BookId>',methods=["GET"])
 def get_book_by_id(BookId):
   db = get_db()
   cursor = db.cursor()
   cursor.execute("SELECT * FROM Books WHERE BookId = %s",(BookId,))
-  books = cursor.fetchall()
+  # books = cursor.fetchall()
+  books = cursor.fetchone()
   db.commit()
   db.close()
   print(books)
   return jsonify(books)
 
-@books_bp.route('',methods=["POST"])
+@books_bp.route('/books',methods=["POST"])
 def add_book():
     # data = request.json
     # title = data['title']
@@ -98,7 +115,7 @@ def add_book():
     db.close()
     return jsonify({'message': 'Book Added successfully'})
 
-@books_bp.route('/<int:BookId>', methods=['PUT'])
+@books_bp.route('/books/<int:BookId>', methods=['PUT'])
 def update_book(BookId):
   BookTitle=request.form.get('BookTitle')
   BookAuthor=request.form.get('BookAuthor')
@@ -133,7 +150,7 @@ def update_book(BookId):
   db.close()
   return jsonify({'message': 'Book Updated successfully'})
 
-@books_bp.route('/<int:BookId>', methods=["DELETE"])
+@books_bp.route('/books/<int:BookId>', methods=["DELETE"])
 def delete_book(BookId):
   # FOR /books?book_id
   # print(request.view_args('book_id'))

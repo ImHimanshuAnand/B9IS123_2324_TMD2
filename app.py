@@ -134,7 +134,7 @@ def login():
     else:
       return render_template('login.html')
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout')
 def logout():
   logout_user()
   session.pop('UserId', None)

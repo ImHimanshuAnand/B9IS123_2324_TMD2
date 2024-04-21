@@ -63,7 +63,7 @@ def query_user_by_id(UserId):
      print(UserId)
      select_query = 'SELECT * FROM Users WHERE UserId = %s '
      cursor = mysql.cursor()
-     cursor.execute(select_query,(UserId))
+     cursor.execute(select_query,(UserId,))
      user = cursor.fetchone()
 
      if user:

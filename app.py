@@ -162,6 +162,9 @@ def BookReservations():
          IssueDate = request.form['IssueDate']
          ReturnDate = request.form['ReturnDate']
          cursor = mysql.cursor()
+        #  if bookstatus === "Available"
+        #  then only insert the data into book reservation table
+        #  else flash an error to frontend or http response
          insert_query='''INSERT INTO BookReservations (UserName, UserPhone, BookTitle, IssueDate, ReturnDate) VALUES('{}','{}','{}','{}','{}');'''.format (UserName, UserPhone, BookTitle, IssueDate, ReturnDate)
          app.logger.info(insert_query)
          cursor.execute(insert_query)

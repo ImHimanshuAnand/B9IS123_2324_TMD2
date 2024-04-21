@@ -3,7 +3,11 @@ CREATE DATABASE LibraryManagementSystem;
 USE LibraryManagementSystem;
 
 
-CREATE TABLE Users (UserId INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(UserID), UserType ENUM('Admin', 'Student'),Email VARCHAR(50),UNIQUE (Email),Password VARCHAR(50));
+CREATE TABLE Users (
+    UserId INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(UserID), 
+    UserType ENUM('Admin', 'Student'),
+    Email VARCHAR(50),UNIQUE (Email),
+    Password VARCHAR(50));
 
 INSERT INTO Users (UserType, Email, Password) VALUES ('Admin', 'admin@example.com', 'admin_password'),('Student', 'student@example.com', 'student_password');"
 

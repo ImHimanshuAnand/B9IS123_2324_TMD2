@@ -244,5 +244,5 @@ def BookReservations():
 
 #Run the flask app at port 8080
 if __name__ == "__main__":
-  app.run(debug=True,host='0.0.0.0',port='8080')
-  # app.run(debug=True,host='0.0.0.0',port='8080',ssl_context=('cert.pem', 'privkey.pem'))
+  # app.run(debug=True,host='0.0.0.0',port='8080')
+  app.run(debug=True,host='0.0.0.0',port='8080',ssl_context=('cert.pem', 'privkey.pem'))

@@ -102,7 +102,8 @@ def book_add():
 
 # Route for user login
 @app.route("/login" ,methods=['GET', 'POST'])
-def login(): 
+def login():
+    print("hello login") 
     if request.method == 'POST':
        UserType = request.form['UserType']
        Email = request.form['Email']

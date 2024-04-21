@@ -2,7 +2,7 @@
 MYSQL_USER="web"
 MYSQL_PASSWORD="webPass"
 MYSQL_HOST="localhost"
-MYSQL_DATABASE="Library1"
+MYSQL_DATABASE="LibraryManagementSystem"
 
 sudo mysql << EOF
 CREATE USER '$MYSQL_USER'@'$MYSQL_HOST' IDENTIFIED BY '$MYSQL_PASSWORD';
@@ -25,7 +25,7 @@ sudo mysql -e "SHOW DATABASES;"
 # MySQL command to create tables
 CREATE_TABLE_QUERY_USERS="
 CREATE TABLE IF NOT EXISTS $MYSQL_DATABASE.Users (
-    UserId INT PRIMARY KEY AUTO_INCREMENT,
+    UserId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     StudentID INT,
     AdminID INT,
     UserType ENUM('Admin', 'Student'),
@@ -65,7 +65,7 @@ sudo mysql << EOF
 $USE_MYDB
 SELECT * FROM Users;
 CREATE TABLE IF NOT EXISTS $MYSQL_DATABASE.Books (
-    BookId INT PRIMARY KEY,
+    BookId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     BookTitle VARCHAR(255),
     BookAuthor VARCHAR(255),
     BookGenre VARCHAR(50),
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS $MYSQL_DATABASE.Books (
 );
 
 CREATE TABLE IF NOT EXISTS BookReservations (
-    BookReservationId INT PRIMARY KEY,
+    BookReservationId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     UserName VARCHAR(50),
     UserPhone BIGINT(10),
     BookTitle VARCHAR(255),
@@ -86,9 +86,6 @@ CREATE TABLE IF NOT EXISTS BookReservations (
     FOREIGN KEY (UserId) REFERENCES Users(UserId),
     FOREIGN KEY (BookId) REFERENCES Books(BookId)
 );
-
-ALTER TABLE Books AUTO_INCREMENT=5001;
-ALTER TABLE BookReservations AUTO_INCREMENT=1001;
 
 
 INSERT INTO Books (BookId, BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear, BookStatus)

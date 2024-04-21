@@ -4,6 +4,7 @@ from flask_bcrypt import Bcrypt
 import mysql.connector
 from flask_cors import CORS
 import json
+from books_routes import books_bp
 
 # MySQL Database Connection
 mysql = mysql.connector.connect(
@@ -12,19 +13,6 @@ mysql = mysql.connector.connect(
   host='localhost',
   database='LibraryManagementSystem'
 )
-
-# # MySQL connection configuration
-# db_config = {
-#     'host': 'localhost',
-#     'user': 'web',
-#     'password': 'webPass',
-#     'database': 'LibraryManagementSystem'
-# }
-
-# Function to establish MySQL connection
-# def get_db():
-#     return mysql.connector.connect(**db_config)
-
 
 from logging.config import dictConfig
 
@@ -47,6 +35,7 @@ dictConfig({
 
 # Flask app initialization 
 app = Flask(__name__)
+app.register_blueprint(books_bp, url_prefix='/books')
 app.secret_key = 'Library_Management_secret_key'
 CORS(app)
 bcrypt = Bcrypt(app)
@@ -147,50 +136,6 @@ def logout():
 def defaultPage():
   return "Hello, Welcome to the Library"
 
-# @app.route('/book',methods=["GET","POST","PUT","DELETE"])
-# def book():
-#   if request.method == 'POST':
-#     # data = request.json
-#     # title = data['title']
-#     # print(title,author)
-#     # BookId=request.form['BookId']
-#     BookTitle=request.form['BookTitle']
-#     BookAuthor=request.form['BookAuthor']
-#     BookGenre=request.form['BookGenre']
-#     BookPublisher=request.form['BookPublisher']
-#     BookYear=request.form['BookYear']
-#     BookStatus=request.form['BookStatus']    
-#     # print(BookId)
-    
-#     db = get_db()
-#     cursor = db.cursor()
-#     query= '''INSERT INTO Books (BookId,BookTitle,BookAuthor,BookGenre,BookPublisher,BookYear,BookStatus) VALUES('{}','{}','{}','{}','{}','{}','{}');'''.format(100,BookTitle,BookAuthor,BookGenre,BookPublisher,BookYear,BookStatus)
-#     cursor.execute(query)
-#     db.commit()
-#     db.close()
-#     return jsonify({'message': 'Book created successfully'})
-#   elif request.method == "PUT":
-#     books.append(request.get_json())
-#   elif request.method == "DELETE":
-#     print(request.view_args('book_id'))
-#     book_id=request.args.get('book_id')
-#     # book_id=request.args.get('book_id')
-#     db = get_db()
-#     cursor = db.cursor()
-#     books = cursor.execute("DELETE FROM Books WHERE id = %s", (100))
-#     db.commit()
-#     db.close()
-#     return jsonify({'message': 'Book deleted successfully'})
-#   elif request.method == "GET":
-#     db = get_db()
-#     cursor = db.cursor()
-#     cursor.execute("SELECT * FROM Books")
-#     books = cursor.fetchall()
-#     db.commit()
-#     db.close()
-#     return jsonify(books)
-#   else:
-#     return "UNKNOWN HTTP METHOD"
 
 # @app.route("/add_book", methods=['POST'])
 # def AddBook():

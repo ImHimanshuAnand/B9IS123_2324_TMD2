@@ -6,6 +6,8 @@ sudo apt update # Update repo list
 sudo  apt -y upgrade
 sudo apt -y install python3-pip
 pip3 install flask
+pip3 install flask_login
+pip3 install flask_bcrypt
 
 sudo apt -y install apache2 python3-certbot-apache # Setup SSL certificate for https
 sudo certbot --apache --himanshuhome1@gmail.com --A --N --$AZUREVM_HOSTNAME --1

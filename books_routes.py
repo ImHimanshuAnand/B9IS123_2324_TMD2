@@ -15,23 +15,6 @@ db_config = {
 def get_db():
     return mysql.connector.connect(**db_config)
 
-# # Configure MySQL connection
-# db = mysql.connector.connect(
-#     host="localhost",
-#     user="your_username",
-#     password="your_password",
-#     database="your_database"
-# )
-# cursor = db.cursor()
-
-# Define books endpoint
-# @books_bp.route('/', methods=['GET'])
-# def get_books():
-#     # Your code for retrieving books data
-#     return jsonify(books_data)
-
-# Add more route handlers as needed
-
 # Define books endpoint, Books APIs
 @books_bp.route('/books',methods=["GET"])
 def get_books():
@@ -86,7 +69,6 @@ def get_book_by_id(BookId):
   db = get_db()
   cursor = db.cursor()
   cursor.execute("SELECT * FROM Books WHERE BookId = %s",(BookId,))
-  # books = cursor.fetchall()
   books = cursor.fetchone()
   db.commit()
   db.close()
@@ -96,10 +78,6 @@ def get_book_by_id(BookId):
 @books_bp.route('/books',methods=["POST"])
 def add_book():
     print(request.form)
-    # data = request.json
-    # title = data['title']
-    # print(title,author)
-    # BookId=request.form['BookId']
     BookTitle=request.form.get('BookTitle')
     BookAuthor=request.form['BookAuthor']
     BookGenre=request.form['BookGenre']
@@ -153,9 +131,6 @@ def update_book(BookId):
 
 @books_bp.route('/books/<int:BookId>', methods=["DELETE"])
 def delete_book(BookId):
-  # FOR /books?book_id
-  # print(request.view_args('book_id'))
-  # book_id=request.args.get('book_id')
   try:
     print(BookId)
     db = get_db()

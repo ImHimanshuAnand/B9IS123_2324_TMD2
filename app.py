@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request,redirect, url_for, session, jsonify, flash
 from flask_login import LoginManager, login_required, UserMixin, login_user, logout_user, current_user
-# from flask_bcrypt import Bcrypt
 import mysql.connector
 from flask_cors import CORS
 import json
@@ -38,7 +37,6 @@ app = Flask(__name__)
 app.register_blueprint(books_bp, url_prefix='/api')
 app.secret_key = 'Library_Management_secret_key'
 CORS(app)
-# bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
@@ -71,6 +69,11 @@ def query_user_by_id(UserId):
      else:
       return None 
 
+# Route for HomePage
+@app.route("/")
+def defaultPage():
+  return "Hello, Welcome to the Library"
+
 #Route for user signup
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
@@ -91,18 +94,6 @@ def signup():
        return render_template('login.html', signup_alert=signup_alert)
     else:   
        return render_template('signup.html')
-  
-@app.route("/books/list",methods=["GET"])
-def book_list():
-  return render_template("book_list.html")
-
-@app.route("/books/add",methods=["GET"])
-def book_add():
-  return render_template("book_add.html")
-
-@app.route("/books/edit/<int:bookId>",methods=["GET"])
-def book_edit(bookId):
-  return render_template("book_edit.html",bookId=bookId)
 
 # Route for user login
 @app.route("/login" ,methods=['GET', 'POST'])
@@ -132,18 +123,34 @@ def login():
     else:
       return render_template('login.html')
 
-@app.route('/logout')
-def logout():
-  logout_user()
-  session.pop('UserId', None)
-  session.pop('UserType', None)
-  session.pop('Email', None)
-  return redirect(url_for('login'))
+# Route for Admin_Dashboard 
+@app.route("/books/list",methods=["GET"])
+@login_required
+def book_list():
+  if current_user.UserType == "Admin":
+    return render_template("book_list.html")
+  else:
+    return "Unauthorized",403   
+# Admin Add feature
+@app.route("/books/add",methods=["GET"])
+def book_add():
+  return render_template("book_add.html")
+# Admin Edit Feature 
+@app.route("/books/edit/<int:bookId>",methods=["GET"])
+def book_edit(bookId):
+  return render_template("book_edit.html",bookId=bookId)
 
-@app.route("/")
-def defaultPage():
-  return "Hello, Welcome to the Library"
+# Route for User_Dashboard 
+@app.route("/reservation",methods=["GET"])
+# @login_required
+def reservation():
+  # if current_user.UserType == "Student":
+    return render_template("User_dashboard.html")
+  else:
+    return "Unauthorized",403
 
+
+# Route for User BookReservation
 @app.route("/BookReservations", methods=['Get','POST']) 
 @login_required
 def BookReservations(): 
@@ -176,7 +183,18 @@ def BookReservations():
     else:
        return render_template('user_form.html') 
   else:
-    return "Unauthorized",403     
+    return "Unauthorized",403  
+
+
+
+# Route for Logout
+@app.route('/logout')
+def logout():
+  logout_user()
+  session.pop('UserId', None)
+  session.pop('UserType', None)
+  session.pop('Email', None)
+  return redirect(url_for('login'))     
 # --------------------------------------------------------------------------
 # @app.route("/adminform", methods=['Get','POST'])
 # @login_required

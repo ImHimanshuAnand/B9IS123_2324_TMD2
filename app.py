@@ -146,8 +146,8 @@ def book_edit(bookId):
 def reservation():
   # if current_user.UserType == "Student":
     return render_template("User_dashboard.html")
-  else:
-    return "Unauthorized",403
+  # else:
+  #   return "Unauthorized",403
 
 
 # Route for User BookReservation

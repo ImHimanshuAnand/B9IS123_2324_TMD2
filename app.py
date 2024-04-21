@@ -128,8 +128,8 @@ def login():
             return redirect(url_for('BookReservations'));
        else:
           return 'INVALID USERNAME OR PASSWORD'
-
-    return render_template('login.html')
+    else:
+      return render_template('login.html')
 
 @app.route('/logout', methods=['POST'])
 def logout():

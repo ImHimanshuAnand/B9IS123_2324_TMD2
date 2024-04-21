@@ -153,14 +153,20 @@ def BookReservations():
          IssueDate = request.form['IssueDate']
          ReturnDate = request.form['ReturnDate']
          cursor = mysql.cursor()
-        #  if bookstatus === "Available"
-        #  then only insert the data into book reservation table
-        #  else flash an error to frontend or http response
-         insert_query='''INSERT INTO BookReservations (UserName, Email, UserPhone, BookTitle, IssueDate, ReturnDate) VALUES('{}','{}','{}','{}','{}','{}');'''.format (UserName, Email, UserPhone, BookTitle, IssueDate, ReturnDate)
-         app.logger.info(insert_query)
-         cursor.execute(insert_query)
-         mysql.commit()
-         return redirect(url_for('BookReservations'))
+      
+       # Check if the book is available before making a reservation
+         check_book_query = "SELECT BookStatus, BookId FROM Books WHERE BookTitle = %s"
+         cursor.execute(check_book_query, (BookTitle,))
+         book_data = cursor.fetchone()
+
+        if book_data and book_data[0] == "Available":
+           insert_query='''INSERT INTO BookReservations (UserName, Email, UserPhone, BookTitle, IssueDate, ReturnDate,UserId,BookId) VALUES('{}','{}','{}','{}','{}','{}');'''.format (UserName, Email, UserPhone, BookTitle, IssueDate, ReturnDate, current_user.UserId,book_data[1])
+           app.logger.info(insert_query)
+           cursor.execute(insert_query)
+           mysql.commit()
+           return redirect(url_for('BookReservations'))
+        else:
+            return jsonify({'error': 'Book is not available for reservation'}), 400  
       except Exception as e:
          return jsonify({'error': str(e)}),500
     else:

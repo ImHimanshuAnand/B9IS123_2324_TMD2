@@ -140,7 +140,7 @@ def logout():
   session.pop('UserId', None)
   session.pop('UserType', None)
   session.pop('Email', None)
-  return redierct(url_for('login'))
+  return redirect(url_for('login'))
 
 @app.route("/")
 def defaultPage():

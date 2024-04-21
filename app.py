@@ -101,9 +101,10 @@ def book_add():
   return render_template("book_add.html")
 
 # Route for user login
-@app.route("/login" ,methods=['POST'])
+@app.route("/login" ,methods=['GET', 'POST'])
 def login():
     print("hello login") 
+    print(request.method)
     if request.method == 'POST':
        UserType = request.form['UserType']
        Email = request.form['Email']

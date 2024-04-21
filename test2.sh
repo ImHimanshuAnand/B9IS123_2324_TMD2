@@ -1,1 +1,0 @@
-echo "Hello from test2.sh"

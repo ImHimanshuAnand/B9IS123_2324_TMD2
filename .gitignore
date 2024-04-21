@@ -3,3 +3,4 @@
 
 # EXCLUDE from git history
 /venv
+__pycache__

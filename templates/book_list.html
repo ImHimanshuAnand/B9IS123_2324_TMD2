@@ -38,117 +38,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        <!-- <li class="nav-item m-2"> -->
-        <!-- Search -->
-        <!-- <form class="d-flex">
-            <input class="form-control me-2" type="search" id="searchInput" placeholder="Search Value..."
-              aria-label="Search">
-            <button class="btn btn-outline-success mx-1" type="submit" onclick="searchBooks()"><i
-                class="fas fa-search"></i></button>
-          </form> -->
-        <!-- </li> -->
-        <li class="nav-item m-2">
-          <!-- Search By -->
-          <div>
-            <label for="searchBySelect">Search Into:</label>
-            <select class="form-select" id="searchBySelect" onchange="searchby(this.value)">
-              <option value="BookId">Book ID</option>
-              <option value="BookTitle">Book Title</option>
-              <option value="BookAuthor">Book Author</option>
-              <option value="BookPublisher">Book Publisher</option>
-              <option value="BookYear">Book Year</option>
-              <option value="BookStatus">Book Status</option>
-            </select>
-          </div>
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="searchByDropdown" data-toggle="dropdown"
-              aria-expanded="false">
-              Search Into
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="searchByDropdown">
-              <li><a class="dropdown-item" href="#" onclick="searchby('BookId')">BookId</a></li>
-              <li><a class="dropdown-item" href="#" onclick="searchby('BookTitle')">BookTitle</a></li>
-              <li><a class="dropdown-item" href="#" onclick="searchby('BookAuthor')">BookAuthor</a></li>
-              <li><a class="dropdown-item" href="#" onclick="searchby('BookPublisher')">BookPublisher</a></li>
-              <li><a class="dropdown-item" href="#" onclick="searchby('BookYear')">BookYear</a></li>
-              <li><a class="dropdown-item" href="#" onclick="searchby('BookStatus')">BookStatus</a></li>
-            </ul>
-          </div>
-        </li>
-        <li class="nav-item m-2">
-          <div class="input-group">
-            <input type="text" class="form-control" id="searchValueInput" placeholder="Search Value Text...">
-            <button class="btn btn-outline-light mx-1" type="button" onclick="searchValueText()">Apply</button>
-          </div>
-        </li>
-        <li class="nav-item m-2">
-          <!-- Filter By -->
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown"
-              aria-expanded="false">
-              Filter By
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="filterDropdown">
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('fiction')">Fiction</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('fantasy')">Fantasy</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('mystery')">Mystery</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('thriller')">Thriller</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('romance')">Romance</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('science-fiction')">Science Fiction
-                  (Sci-Fi)</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('fantasy')">Fantasy</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('historical-fiction')">Historical Fiction</a>
-              </li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('biography')">Biography</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('autobiography')">Autobiography</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('self-help')">Self-help</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('horror')">Horror</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('drama')">Drama</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('comedy')">Comedy</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('poetry')">Poetry</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('travel')">Travel</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('religion')">Religion</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('philosophy')">Philosophy</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('science')">Science</a></li>
-              <li><a class="dropdown-item" href="#" onclick="filterBooks('art')">Art</a></li>
-            </ul>
-          </div>
-        </li>
         <li class="nav-item m-2">
           <div class="input-group">
             <input type="text" class="form-control" id="filterValueInput" placeholder="Filter By Value Text...">
             <button class="btn btn-outline-secondary mx-1" type="button" onclick="filterByValueText()">Apply</button>
           </div>
-        </li>
-        <li class="nav-item m-2">
-          <!-- Sort By -->
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-toggle="dropdown"
-              aria-expanded="false">
-              Sort By
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="sortDropdown">
-              <li><a class="dropdown-item" href="#" onclick="sortBooks('title')">Title</a></li>
-              <li><a class="dropdown-item" href="#" onclick="sortBooks('author')">Author</a></li>
-              <li><a class="dropdown-item" href="#" onclick="sortBooks('year')">Year</a></li>
-              <!-- Add more options for sorting -->
-            </ul>
-          </div>
-        </li>
-        <li class="nav-item m-2">
-          <button class="btn btn-light fas fa-arrow-down" type="button" onclick="filterByValueText()"></button>
-          <button class="btn btn-light fas fa-arrow-up" type="button" onclick="filterByValueText()"></button>
-          <!-- Sort By -->
-          <!-- <div class="dropdown"> -->
-          <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-toggle="dropdown"
-              aria-expanded="false">
-              Sort as
-            </button> -->
-          <!-- <ul class="dropdown-menu" aria-labelledby="sortDropdown">
-              <li><a class="dropdown-item fas fa-arrow-down" href="#" onclick="sortBooks('title')">Descending</a></li>
-              <li><a class="dropdown-item fas fa-arrow-up" href="#" onclick="sortBooks('title')">Ascending</a></li>
-            </ul>
-          </div> -->
         </li>
         <li class="nav-item m-2">
           <a href="{{ url_for('logout') }}" class="btn btn-warning"><i class="fa fa-sign-out-alt"></i>Logout</a>

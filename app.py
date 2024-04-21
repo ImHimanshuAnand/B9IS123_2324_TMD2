@@ -83,7 +83,7 @@ def signup():
        hashed_password = bcrypt.generate_password_hash(Password)
 
        cursor = mysql.cursor();
-       insert_query= ''' INSERT INTO Users (UserType, Email, Password) VALUES('{}','{}','{}');'''.format(UserType,Email,Password)
+       insert_query= ''' INSERT INTO Users (UserType, Email, Password) VALUES('{}','{}','{}');'''.format(UserType,Email,hashed_password)
        app.logger.info(insert_query)
        cursor.execute(insert_query)
        mysql.commit()
@@ -116,6 +116,7 @@ def login():
        cursor.execute(select_query, (UserType, Email))
        user = cursor.fetchone()
        if user and bcrypt.check_password_hash(user[3], Password):
+          
           session['UserID'] = user[0]
           session['UserType'] = user[1]
           session['Email'] = user[2]

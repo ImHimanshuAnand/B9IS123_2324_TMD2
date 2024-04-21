@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS $MYSQL_DATABASE.Books (
     BookAuthor VARCHAR(255),
     BookGenre VARCHAR(50),
     BookPublisher VARCHAR(255),
-    BookYear DATE,
+    BookYear INT,
     BookStatus ENUM('Available', 'On Hold', 'Not Available')
 );
 
@@ -88,10 +88,30 @@ CREATE TABLE IF NOT EXISTS BookReservations (
 );
 
 
-INSERT INTO Books (BookId, BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear, BookStatus)
-VALUES (1, 'The Great Gatsby', 'F. Scott Fitzgerald', 'Fiction', 'Scribner', '1925-04-10', 'Available'),
-       (2, 'To Kill a Mockingbird', 'Harper Lee', 'Fiction', 'J. B. Lippincott & Co.', '1960-07-11', 'Available'),
-       (3, '1984', 'George Orwell', 'Dystopian', 'Secker & Warburg', '1949-06-08', 'On Hold');
+INSERT INTO Books (BookId, BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear, BookStatus) 
+VALUES
+(1, 'To Kill a Mockingbird', 'Harper Lee', 'Fiction', 'J.B. Lippincott & Co.', 1960, 'Not Available'),
+(2, '1984', 'George Orwell', 'Dystopian Fiction', 'Secker & Warburg', 1949, 'On Hold'),
+(3, 'The Catcher in the Rye', 'J.D. Salinger', 'Fiction', 'Little, Brown and Company', 1951, 'Available'),
+(4, 'Pride and Prejudice', 'Jane Austen', 'Classic Literature', 'T. Egerton, Whitehall', 1813, 'Available'),
+(5, 'The Great Gatsby', 'F. Scott Fitzgerald', 'Classic Literature', 'Scribner', 1925, 'Available'),
+(6, 'Moby-Dick', 'Herman Melville', 'Adventure Fiction', 'Richard Bentley', 1851, 'Available'),
+(7, 'The Lord of the Rings', 'J.R.R. Tolkien', 'Fantasy', 'Allen & Unwin', 1954, 'Available'),
+(8, 'The Hobbit', 'J.R.R. Tolkien', 'Fantasy', 'Allen & Unwin', 1937, 'Available'),
+(9, 'Harry Potter and the Philosopher''s Stone', 'J.K. Rowling', 'Fantasy', 'Bloomsbury', 1997, 'Available'),
+(10, 'The Adventures of Huckleberry Finn', 'Mark Twain', 'Adventure Fiction', 'Chatto & Windus', 1884, 'Available'),
+(11, 'The Odyssey', 'Homer', 'Epic Poetry', 'Various', -700, 'Available'),
+(12, 'The Great Expectations', 'Charles Dickens', 'Classic Literature', 'Chapman & Hall', 1861, 'Available'),
+(13, 'Animal Farm', 'George Orwell', 'Political Satire', 'Secker & Warburg', 1945, 'Available'),
+(14, 'The Adventures of Sherlock Holmes', 'Arthur Conan Doyle', 'Mystery', 'George Newnes Ltd', 1892, 'Available'),
+(15, 'The Picture of Dorian Gray', 'Oscar Wilde', 'Gothic Fiction', 'Lippincott''s Monthly Magazine', 1890, 'Available'),
+(16, 'Frankenstein', 'Mary Shelley', 'Gothic Fiction', 'Lackington, Hughes, Harding, Mavor & Jones', 1818, 'Available'),
+(17, 'Don Quixote', 'Miguel de Cervantes', 'Novel', 'Francisco de Robles', 1605, 'Available'),
+(18, 'Alice''s Adventures in Wonderland', 'Lewis Carroll', 'Fantasy', 'Macmillan', 1865, 'Available'),
+(19, 'The War of the Worlds', 'H.G. Wells', 'Science Fiction', 'William Heinemann', 1898, 'Available'),
+(20, 'Dracula', 'Bram Stoker', 'Gothic Horror', 'Archibald Constable and Company', 1897, 'Available'),
+(21, 'War and Peace', 'Leo Tolstoy', 'Historical Fiction', 'The Russian Messenger', 1869, 'Available');
+
 
 INSERT INTO BookReservations (BookReservationId, UserName, UserPhone, BookTitle, IssueDate, ReturnDate, UserId, BookId)
 VALUES (1, 'John Doe', 1234567890, 'The Great Gatsby', '2024-04-18 10:00:00', '2024-04-25 10:00:00', 1, 1),

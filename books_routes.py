@@ -100,11 +100,35 @@ def add_book():
 
 @books_bp.route('/<int:BookId>', methods=['PUT'])
 def update_book(BookId):
+  BookTitle=request.form.get('BookTitle')
+  BookAuthor=request.form.get('BookAuthor')
+  BookGenre=request.form.get('BookGenre')
+  BookPublisher=request.form.get('BookPublisher')
+  BookYear=request.form.get('BookYear')
+  BookStatus=request.form.get('BookStatus')    
+  print(request.form)
+  # Construct SQL query to update the book
+  sql_query = "UPDATE Books SET"
+  if BookTitle:
+    sql_query += f" BookTitle = '{BookTitle}',"
+  if BookAuthor:
+    sql_query += f" BookAuthor = '{BookAuthor}',"
+  if BookGenre:
+    sql_query += f" BookGenre = '{BookGenre}',"
+  if BookPublisher:
+    sql_query += f" BookPublisher = '{BookPublisher}',"
+  if BookYear:
+    sql_query += f" BookYear = '{BookYear}',"
+  if BookStatus:
+    sql_query += f" BookStatus = '{BookStatus}',"
+  # Remove trailing comma
+  sql_query = sql_query[:-1]
+  sql_query += f" WHERE BookId = {BookId}"
+  # Execute SQL query
+  print(sql_query)
   db = get_db()
   cursor = db.cursor()
-  BookTitle=request.form['BookTitle']
-  print(BookTitle,BookId)
-  cursor.execute('''UPDATE Books SET BookTitle = %s WHERE BookId = %s''',(BookTitle, BookId))
+  cursor.execute(sql_query)
   db.commit()
   db.close()
   return jsonify({'message': 'Book Updated successfully'})

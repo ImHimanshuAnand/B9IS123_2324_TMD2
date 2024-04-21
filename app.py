@@ -147,6 +147,7 @@ def BookReservations():
     if request.method == 'POST':
       try:
          UserName = request.form['UserName']
+         Email = request.form['Email']
          UserPhone = request.form['UserPhone']
          BookTitle = request.form['BookTitle']
          IssueDate = request.form['IssueDate']
@@ -155,12 +156,11 @@ def BookReservations():
         #  if bookstatus === "Available"
         #  then only insert the data into book reservation table
         #  else flash an error to frontend or http response
-         insert_query='''INSERT INTO BookReservations (UserName, UserPhone, BookTitle, IssueDate, ReturnDate) VALUES('{}','{}','{}','{}','{}');'''.format (UserName, UserPhone, BookTitle, IssueDate, ReturnDate)
+         insert_query='''INSERT INTO BookReservations (UserName, Email, UserPhone, BookTitle, IssueDate, ReturnDate) VALUES('{}','{}','{}','{}','{}','{}');'''.format (UserName, Email, UserPhone, BookTitle, IssueDate, ReturnDate)
          app.logger.info(insert_query)
          cursor.execute(insert_query)
          mysql.commit()
          return redirect(url_for('BookReservations'))
-        #  return render_template('user_form.html') 
       except Exception as e:
          return jsonify({'error': str(e)}),500
     else:

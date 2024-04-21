@@ -78,9 +78,6 @@ SELECT
     (SELECT UserId FROM Users WHERE Email = 'student3@gmail.com') AS UserId, 
     (SELECT BookId FROM Books WHERE BookTitle = 'The Great Gatsby') AS BookId;
 
-
-
-
 SELECT * FROM BookReservations;
 -------------------------
 

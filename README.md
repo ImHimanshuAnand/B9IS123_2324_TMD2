@@ -1,5 +1,5 @@
 # Module: B9IS123_2324_TMD2 - Programming for Information Systems
-[Link to Documentation](https://docs.google.com/document/d/1BP2CsbGHD83c0s7JLD4JdVjrfBDxQUFI13GMh-crQ54/edit?usp=sharing)
+[Link to Google Docs Documentation](https://docs.google.com/document/d/1BP2CsbGHD83c0s7JLD4JdVjrfBDxQUFI13GMh-crQ54/edit?usp=sharing)
 ## Team Members Name, StudentID, Emails
 1. Anusha Beeraiah Mariswamy - 20028528 - anushagowda1598@gmail.com
 2. Gopika Kurumkulathil Vijayakumar - 20017757 - kvgopika3@gmail.com

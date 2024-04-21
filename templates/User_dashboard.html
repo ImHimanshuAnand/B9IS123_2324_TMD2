@@ -200,16 +200,7 @@
                         <td>${book.BookYear}</td>
                         <td>${book.BookStatus}</td>
                         <td>
-                        <a href="/books/add" class="btn btn-success"><i class="fas fa-plus"></i> Add</a>
-                        </td>
-                        <td>
-                            <a href="/books/edit/${book.BookId}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit</a>
-                        </td>
-                        <td>
-                            <a href="#" class="btn btn-danger" onclick="handleDeleteBook(${book.BookId})"><i class="fas fa-trash-alt"></i> Delete</a>
-                        </td>
-                        <td>
-                            <a href="/save_book?id=${book.BookId}" class="btn btn-info"><i class="fas fa-save"></i> Save</a>
+                        <a href="BookReservations" class="btn btn-success"><i class="fas fa-plus"></i> Reserve</a>
                         </td>
                     </tr>
                 `;
@@ -253,24 +244,6 @@
         filter_param: filterBy,
         filter_value: filterQuery
       })
-    }
-    function handleDeleteBook(bookId) {
-      fetch(`/api/books/${bookId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Failed to delete book');
-          }
-          console.log('Book deleted successfully');
-          getBooks()
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
     }
   </script>
   <script>

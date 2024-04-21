@@ -63,6 +63,7 @@ CREATE TABLE BookReservations (
 );
 
 -- Adding indexes for better performance
+
 CREATE INDEX idx_UserId ON BookReservations(UserId);
 CREATE INDEX idx_BookId ON BookReservations(BookId);
 CREATE INDEX idx_Email ON BookReservations(Email);

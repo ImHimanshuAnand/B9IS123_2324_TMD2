@@ -156,13 +156,18 @@ def delete_book(BookId):
   # FOR /books?book_id
   # print(request.view_args('book_id'))
   # book_id=request.args.get('book_id')
-  print(BookId)
-  db = get_db()
-  cursor = db.cursor()
-  
-  # mysql module, cursor.execute requires a sql query and a tuple as parameters, so keep , at end
-  books = cursor.execute("DELETE FROM Books WHERE BookId = %s", (BookId,))
-  db.commit()
-  db.close()
-  return jsonify({'message': 'Book deleted successfully'})
+  try:
+    print(BookId)
+    db = get_db()
+    cursor = db.cursor()
+    
+    # mysql module, cursor.execute requires a sql query and a tuple as parameters, so keep , at end
+    books = cursor.execute("DELETE FROM Books WHERE BookId = %s", (BookId,))
+    db.commit()
+    db.close()
+    return jsonify({'message': 'Book deleted successfully'})
+  except Exception as e:
+    print('Error:', e)
+    # return jsonify({'message': Exception})
+    return jsonify({'error': 'Internal server error', 'message':str(e)}), 404
    

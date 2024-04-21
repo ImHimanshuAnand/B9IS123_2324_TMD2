@@ -100,6 +100,10 @@ def book_list():
 def book_add():
   return render_template("book_add.html")
 
+@app.route("/books/edit/<int:bookId>",methods=["GET"])
+def book_edit(bookId):
+  return render_template("book_edit.html",bookId=bookId)
+
 # Route for user login
 @app.route("/login" ,methods=['GET', 'POST'])
 def login():
@@ -240,5 +244,5 @@ def BookReservations():
 
 #Run the flask app at port 8080
 if __name__ == "__main__":
-  # app.run(debug=True,host='0.0.0.0',port='8080')
-  app.run(debug=True,host='0.0.0.0',port='8080',ssl_context=('cert.pem', 'privkey.pem'))
+  app.run(debug=True,host='0.0.0.0',port='8080')
+  # app.run(debug=True,host='0.0.0.0',port='8080',ssl_context=('cert.pem', 'privkey.pem'))

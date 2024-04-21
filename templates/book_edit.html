@@ -4,11 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Books</title>
+  <title>Edit Book</title>
   <style>
-
     /* Form styles */
-
     form {
       max-width: 500px;
       margin: 0 auto;
@@ -42,48 +40,92 @@
     input[type="submit"]:hover {
       background-color: #45a049;
     }
-    
   </style>
 </head>
 
 <body>
-  <h1>Add Book</h1>
-  <form onsubmit="handleAddBook(event)">
+  <h1>Edit Book: ID {{bookId}}</h1>
+  <form onsubmit="handleEditBook(event)">
     <label for="title">Title:</label>
-    <input type="text" id="title" name="BookTitle">
+    <input type="text" id="BookTitle" name="BookTitle" value="">
 
     <label for="author">Author:</label>
-    <input type="text" id="author" name="BookAuthor">
+    <input type="text" id="BookAuthor" name="BookAuthor" value="">
 
     <label for="genre">Genre:</label>
-    <select id="genre" name="BookGenre">
-      <option value="fiction">Fiction</option>
-      <option value="non-fiction">Non-Fiction</option>
+    <select id="BookGenre" name="BookGenre" value="">
+      <option value="Fiction">Fiction</option>
+      <option value="Non-Fiction">Non-Fiction</option>
       <option value="science-fiction">Science Fiction</option>
     </select>
 
     <label for="author">Publisher:</label>
-    <input type="text" id="publisher" name="BookPublisher">
+    <input type="text" id="BookPublisher" name="BookPublisher" value="">
 
     <label for="author">Year:</label>
-    <input type="number" id="year" name="BookYear">
+    <input type="number" id="BookYear" name="BookYear" value="">
 
     <label for="status">Status:</label>
-    <select id="status" name="BookStatus">
-      <option value="available">Available</option>
-      <option value="available">Not Available</option>
-      <option value="available">On Hold</option>
-      <option value="borrowed">Borrowed</option>
-      <option value="reserved">Reserved</option>
+    <select id="BookStatus" name="BookStatus" value="">
+      <option value="Available">Available</option>
+      <option value="Not Available">Not Available</option>
+      <option value="On Hold">On Hold</option>
     </select>
 
     <!-- <input type="submit"> -->
     <button type="submit">Submit</button>
   </form>
   <script>
-    function handleAddBook(e) {
+    function getBookById() {
+      const id = window.location.pathname.split("/").pop()
+
+      fetch(`/api/books/${id}`)
+        .then(response => response.json())
+        .then(book => {
+          console.log(book)
+          console.log(book[0])
+          // document.getElementById('BookId').value = book[0];
+          document.getElementById('BookTitle').value = book[1];
+          document.getElementById('BookAuthor').value = book[2];
+          document.getElementById('BookGenre').value = book[3];
+          document.getElementById('BookPublisher').value = book[4];
+          document.getElementById('BookYear').value = book[5];
+          document.getElementById('BookStatus').value = book[6];
+        })
+        .catch(error => {
+          console.error('Error fetching book data:', error);
+        });
+
+      return
+      fetch(`/api/books`, {
+        method: 'GET',
+        // headers: {
+        //   'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        // },
+        // body: formBody
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to Get book by ID');
+          }
+          // alert('Book Added successfully');
+          // const url = new URL(location);
+          // url.searchParams.set("foo", "bar");
+          // history.pushState({}, "", "/books/list");
+          // window.location.href = "/books/list"
+        })
+        .catch(error => {
+          alert(error)
+          console.error('Error:', error);
+        });
+
+    }
+
+    getBookById()
+
+    function handleEditBook(e) {
       e.preventDefault();
-      console.log("handleAddBook", e.target.BookTitle.value)
+      console.log("handleEditBook", e.target.BookTitle.value)
       // const BookId = e.target.BookId.value;
       let BookTitle = e.target.BookTitle.value;
       let BookAuthor = e.target.BookAuthor.value;
@@ -108,8 +150,9 @@
         formBody.push(encodedKey + "=" + encodedValue);
       }
       formBody = formBody.join("&");
-      fetch(`/api/books`, {
-        method: 'POST',
+      const id = window.location.pathname.split("/").pop()
+      fetch(`/api/books/` + id, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
         },
@@ -119,7 +162,7 @@
           if (!response.ok) {
             throw new Error('Failed to add book');
           }
-          alert('Book Added successfully');
+          alert('Book Edited successfully');
           // const url = new URL(location);
           // url.searchParams.set("foo", "bar");
           // history.pushState({}, "", "/books/list");
@@ -129,33 +172,6 @@
           alert(error)
           console.error('Error:', error);
         });
-    }
-
-    function sendForm(e) {
-      console.log(e)
-      // var selectedValue = selectElement.value;
-      // urlencoded formdata
-      // var formData = 'BookTitle=' + encodeURIComponent() + '&BookId=' + encodeURIComponent(bookId);
-      // formdata
-      // var formData = new FormData();
-      // formData.append('BookStatus', selectedValue);
-      // formData.append('BookId', bookId);
-
-      $.ajax({
-        url: '/api/books',
-        type: 'POST',
-        data: formData,
-        // ---for formdata
-        // processData: false,
-        // contentType: false, 
-        contentType: 'application/x-www-form-urlencoded', // urlencoded formdata
-        success: function (response) {
-          console.log('Status updated successfully');
-        },
-        error: function (xhr, status, error) {
-          console.error('Error updating status:', error);
-        }
-      });
     }
   </script>
 </body>

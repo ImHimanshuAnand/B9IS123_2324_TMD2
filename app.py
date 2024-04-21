@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request,redirect, url_for, session, jsonify, flash
 from flask_login import LoginManager, login_required, UserMixin, login_user, logout_user, current_user
-from flask_bcrypt import Bcrypt
+# from flask_bcrypt import Bcrypt
 import mysql.connector
 from flask_cors import CORS
 import json
@@ -38,7 +38,7 @@ app = Flask(__name__)
 app.register_blueprint(books_bp, url_prefix='/api')
 app.secret_key = 'Library_Management_secret_key'
 CORS(app)
-bcrypt = Bcrypt(app)
+# bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
@@ -79,17 +79,16 @@ def signup():
        UserType = request.form['UserType']
        Email = request.form['Email']
        Password = request.form['Password']
-       print(UserType,Email,Password)
 
        cursor = mysql.cursor();
        insert_query= ''' INSERT INTO Users (UserType, Email, Password) VALUES('{}','{}','{}');'''.format(UserType,Email,Password)
        app.logger.info(insert_query)
        cursor.execute(insert_query)
        mysql.commit()
-       print(Password) 
+     
        flash("Signup successfull! Please Login.", "success")
        signup_alert = "Signup successfull! Please wait a moment."    
-       return render_template('signup.html', signup_alert=signup_alert)
+       return render_template('login.html', signup_alert=signup_alert)
     else:   
        return render_template('signup.html')
   
@@ -104,21 +103,16 @@ def book_add():
 # Route for user login
 @app.route("/login" ,methods=['GET', 'POST'])
 def login():
-    print("hello login 1") 
-    print(request.method)
     if request.method == 'POST':
        UserType = request.form['UserType']
        Email = request.form['Email']
        Password = request.form['Password']
-       print(Email,Password)
        cursor = mysql.cursor();
        select_query = '''SELECT * FROM Users WHERE Email='{}' AND Password='{}';'''.format(Email,Password)
        app.logger.info(select_query)
        cursor.execute(select_query)
        user = cursor.fetchone()
-       print(user)
-       if user:
-          
+       if user:     
           session['UserID'] = user[0]
           session['UserType'] = user[1]
           session['Email'] = user[2]
@@ -145,10 +139,6 @@ def logout():
 @app.route("/")
 def defaultPage():
   return "Hello, Welcome to the Library"
-
-@app.route("/add_book", methods=['GET'])
-def AddBook():
-  return render_template('signup.html')
 
 @app.route("/BookReservations", methods=['Get','POST']) 
 @login_required
@@ -177,31 +167,31 @@ def BookReservations():
        return render_template('user_form.html') 
   else:
     return "Unauthorized",403     
-
-@app.route("/adminform", methods=['Get','POST'])
-@login_required
-def adminform(): 
-   if current_user.UserType == "Admin":
-      if request.method == 'POST':
-        try:
-           BookTitle = request.form['BookTitle']
-           BookAuthor = request.form['BookAuthor']
-           BookGenre = request.form['BookGenre']
-           BookPublisher = request.form['BookPublisher']
-           BookYear = request.form['BookYear']
-           cursor = mysql.cursor()
-           insert_query = '''INSERT INTO Admin (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear ) VALUES ('{}','{}','{}','{}','{}')'''.format (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear)
-           app.logger.info(insert_query)
-           cursor.execute(insert_query)
-           mysql.commit()
-           return redirect(url_for('adminform'))
-          #  return render_template('admin_form.html')
-        except Exception as e:
-           return jsonify({'error': str(e)}),500
-      else:
-       return render_template('admin_form.html') 
-   else:
-     return "Unauthorized",403       
+# --------------------------------------------------------------------------
+# @app.route("/adminform", methods=['Get','POST'])
+# @login_required
+# def adminform(): 
+#    if current_user.UserType == "Admin":
+#       if request.method == 'POST':
+#         try:
+#            BookTitle = request.form['BookTitle']
+#            BookAuthor = request.form['BookAuthor']
+#            BookGenre = request.form['BookGenre']
+#            BookPublisher = request.form['BookPublisher']
+#            BookYear = request.form['BookYear']
+#            cursor = mysql.cursor()
+#            insert_query = '''INSERT INTO Admin (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear ) VALUES ('{}','{}','{}','{}','{}')'''.format (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear)
+#            app.logger.info(insert_query)
+#            cursor.execute(insert_query)
+#            mysql.commit()
+#            return redirect(url_for('adminform'))
+#           #  return render_template('admin_form.html')
+#         except Exception as e:
+#            return jsonify({'error': str(e)}),500
+#       else:
+#        return render_template('admin_form.html') 
+#    else:
+#      return "Unauthorized",403       
          
 # --------------------------------------------------------
 # @app.route("/add", methods=['GET', 'POST']) #Add Student

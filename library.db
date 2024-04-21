@@ -10,20 +10,76 @@ INSERT INTO Users (UserType, Email, Password) VALUES ('Admin', 'admin@example.co
 SELECT * FROM Users;	
 
 ----------------------
-CREATE TABLE Admin (BookId INT  NOT NULL AUTO_INCREMENT,PRIMARY KEY(BookId),BookTitle VARCHAR(255),BookAuthor VARCHAR(255),BookGenre VARCHAR(50),BookPublisher VARCHAR(255),BookYear DATE);
+CREATE TABLE Books (
+    BookId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    BookTitle VARCHAR(255),
+    BookAuthor VARCHAR(255),
+    BookGenre VARCHAR(50),
+    BookPublisher VARCHAR(255),
+    BookYear INT,
+    BookStatus ENUM('Available', 'On Hold', 'Not Available')
+);
 
-INSERT INTO Admin (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear)
-VALUES ('The Great Gatsby', 'F. Scott Fitzgerald', 'Fiction', 'Scribner', '1925-04-10'),
-       ('To Kill a Mockingbird', 'Harper Lee', 'Fiction', 'J. B. Lippincott & Co.', '1960-07-11'),
-       ('1984', 'George Orwell', 'Dystopian', 'Secker & Warburg', '1949-06-08');
+INSERT INTO Books (BookTitle, BookAuthor, BookGenre, BookPublisher, BookYear, BookStatus) 
+VALUES
+('To Kill a Mockingbird', 'Harper Lee', 'Fiction', 'J.B. Lippincott & Co.', 1960, 'Not Available'),
+('1984', 'George Orwell', 'Dystopian Fiction', 'Secker & Warburg', 1949, 'On Hold'),
+('The Catcher in the Rye', 'J.D. Salinger', 'Fiction', 'Little, Brown and Company', 1951, 'Available'),
+('Pride and Prejudice', 'Jane Austen', 'Classic Literature', 'T. Egerton, Whitehall', 1813, 'Available'),
+('The Great Gatsby', 'F. Scott Fitzgerald', 'Classic Literature', 'Scribner', 1925, 'Available'),
+('Moby-Dick', 'Herman Melville', 'Adventure Fiction', 'Richard Bentley', 1851, 'Available'),
+('The Lord of the Rings', 'J.R.R. Tolkien', 'Fantasy', 'Allen & Unwin', 1954, 'Available'),
+('The Hobbit', 'J.R.R. Tolkien', 'Fantasy', 'Allen & Unwin', 1937, 'Available'),
+('Harry Potter and the Philosopher''s Stone', 'J.K. Rowling', 'Fantasy', 'Bloomsbury', 1997, 'Available'),
+('The Adventures of Huckleberry Finn', 'Mark Twain', 'Adventure Fiction', 'Chatto & Windus', 1884, 'Available'),
+('The Odyssey', 'Homer', 'Epic Poetry', 'Various', -700, 'Available'),
+('The Great Expectations', 'Charles Dickens', 'Classic Literature', 'Chapman & Hall', 1861, 'Available'),
+('Animal Farm', 'George Orwell', 'Political Satire', 'Secker & Warburg', 1945, 'Available'),
+('The Adventures of Sherlock Holmes', 'Arthur Conan Doyle', 'Mystery', 'George Newnes Ltd', 1892, 'Available'),
+('The Picture of Dorian Gray', 'Oscar Wilde', 'Gothic Fiction', 'Lippincott''s Monthly Magazine', 1890, 'Available'),
+('Frankenstein', 'Mary Shelley', 'Gothic Fiction', 'Lackington, Hughes, Harding, Mavor & Jones', 1818, 'Available'),
+('Don Quixote', 'Miguel de Cervantes', 'Novel', 'Francisco de Robles', 1605, 'Available'),
+('Alice''s Adventures in Wonderland', 'Lewis Carroll', 'Fantasy', 'Macmillan', 1865, 'Available'),
+('The War of the Worlds', 'H.G. Wells', 'Science Fiction', 'William Heinemann', 1898, 'Available'),
+('Dracula', 'Bram Stoker', 'Gothic Horror', 'Archibald Constable and Company', 1897, 'Available'),
+('War and Peace', 'Leo Tolstoy', 'Historical Fiction', 'The Russian Messenger', 1869, 'Available');
 
-SELECT * FROM Admin;
---------------------------
-CREATE TABLE BookReservations (BookReservationId INT NOT NULL AUTO_INCREMENT,PRIMARY KEY(BookReservationId),UserName VARCHAR(50),     UserPhone BIGINT(10),     BookTitle VARCHAR(255),     IssueDate DATETIME,     ReturnDate DATETIME,     UserId INT,     BookId INT,     FOREIGN KEY (UserId) REFERENCES Users(UserId),      FOREIGN KEY (BookId) REFERENCES Admin(BookId)  );
+SELECT * FROM Books;
+--------------------------------------
+CREATE TABLE BookReservations (
+    BookReservationId INT NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (BookReservationId),
+    UserName VARCHAR(50) NOT NULL,
+    Email VARCHAR(255) NOT NULL,
+    UserPhone BIGINT(10),
+    BookTitle VARCHAR(255) NOT NULL,
+    IssueDate DATETIME NOT NULL,
+    ReturnDate DATETIME NOT NULL,
+    UserId INT NOT NULL,
+    BookId INT NOT NULL,
+    FOREIGN KEY (UserId) REFERENCES Users(UserId),
+    FOREIGN KEY (BookId) REFERENCES Books(BookId),
+    FOREIGN KEY (Email) REFERENCES Users(Email)
+);
 
-INSERT INTO BookReservations (UserName, UserPhone, BookTitle, IssueDate, ReturnDate)
-VALUES ('John Doe', 1234567890, 'The Great Gatsby', '2024-04-18 10:00:00', '2024-04-25 10:00:00'),
-       ('Jane Smith', 9876543210, 'To Kill a Mockingbird', '2024-04-20 14:00:00', '2024-04-27 14:00:00');
+-- Adding indexes for better performance
+CREATE INDEX idx_UserId ON BookReservations(UserId);
+CREATE INDEX idx_BookId ON BookReservations(BookId);
+CREATE INDEX idx_Email ON BookReservations(Email);
+
+INSERT INTO BookReservations (UserName, Email, UserPhone, BookTitle, IssueDate, ReturnDate, UserId, BookId)
+SELECT 
+    'John Doe' AS UserName, 
+    'student3@gmail.com' AS Email, 
+    1234567890 AS UserPhone, 
+    'The Great Gatsby' AS BookTitle, 
+    '2024-04-18 10:00:00' AS IssueDate, 
+    '2024-04-25 10:00:00' AS ReturnDate, 
+    (SELECT UserId FROM Users WHERE Email = 'student3@gmail.com') AS UserId, 
+    (SELECT BookId FROM Books WHERE BookTitle = 'The Great Gatsby') AS BookId;
+
+
+
 
 SELECT * FROM BookReservations;
 -------------------------

@@ -87,7 +87,7 @@ def signup():
        app.logger.info(insert_query)
        cursor.execute(insert_query)
        mysql.commit()
-
+       print(hashed_password) 
        flash("Signup successfull! Please Login.", "success")
        signup_alert = "Signup successfull! Please wait a moment."    
        return render_template('signup.html', signup_alert=signup_alert)
@@ -109,12 +109,13 @@ def login():
        UserType = request.form['UserType']
        Email = request.form['Email']
        Password = request.form['Password']
-
+       print(Email,Password)
        cursor = mysql.cursor();
        select_query = '''SELECT * FROM Users WHERE UserType='{}' AND Email='{}';'''
        app.logger.info(select_query)
        cursor.execute(select_query, (UserType, Email))
        user = cursor.fetchone()
+       print(user)
        if user and bcrypt.check_password_hash(user[3], Password):
           
           session['UserID'] = user[0]
